@@ -16,4 +16,4 @@ jobs:
       - name: Bildirim gönder
         run: |
           curl -fsS https://ntfy.sh/ \
-            -d '{"topic":"mert-bilim-c657911459e06fadccd4","title":"Günün Merakı sizi bekliyor","message":"Bugünün konusu açıldı. Kısa okuma, üç soru ve akşam için bir sohbet sorusu.","tags":["sunrise"],"priority":3,"click":"https://omernc.github.io/bilim-gorevleri/"}'
+            -d '{"topic":"mert-bilim-c657911459e06fadccd4","title":"Günün Merakı sizi bekliyor","message":"Bugünün konusu açıldı. Kısa okuma, üç soru ve akşam için bir sohbet sorusu.","tags":["sunrise"],"priority":3,"click":"https://omernc.github.io/gunun-meraki/"}'
