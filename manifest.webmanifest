@@ -1,20 +1,20 @@
 {
- "name": "Mert'in Bilim Görevleri",
- "short_name": "Bilim Görevleri",
+ "name": "Günün Merakı",
+ "short_name": "Günün Merakı",
  "lang": "tr",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
- "background_color": "#26357a",
- "theme_color": "#26357a",
+ "background_color": "#f6f3fa",
+ "theme_color": "#f6f3fa",
  "icons": [
   {
-   "src": "ikon_192.png",
+   "src": "ikon-192.png",
    "sizes": "192x192",
    "type": "image/png"
   },
   {
-   "src": "ikon_512.png",
+   "src": "ikon-512.png",
    "sizes": "512x512",
    "type": "image/png",
    "purpose": "any maskable"

@@ -3,265 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Günün Merakı">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f3fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1a29" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="ikon_180.png">
-<link rel="icon" type="image/png" href="ikon_192.png">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="apple-touch-icon" href="ikon-180.png">
+<link rel="icon" type="image/png" href="ikon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>Mert'in Bilim Görevleri</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Bilim Görevleri">
-<meta name="theme-color" content="#26357a">
+<title>Günün Merakı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lexend:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Literata:opsz,wght@7..72,400;7..72,500&family=Manrope:wght@500;600;700&display=swap">
 <style>
-/* Layout: kareli defter zemininde tek sütun — 3B ada sahnesi, bugünün görevi (seviye seçicili), kod kilidi, 30 günlük harita */
+/* Layout: tek sütun okuma akışı — manzara başlığı, okuma, "biliyor muydunuz", mini test, akşam sorusu, yarının kartı, geçmiş */
 :root{
-  --paper:#f3f7fb; --grid:rgba(40,70,120,.075); --ink:#17223a; --muted:#5b6880;
-  --card:#ffffff; --line:#d9e2ee; --accent:#f26a21; --accent-ink:#ffffff; --accent-soft:#ffe7d8;
-  --teal:#13998a; --teal-soft:#d6f2ee; --sun:#ffc23d; --locked:#c9d3e1; --boss:#7b4fd6; --boss-soft:#ece4fb;
-  --sky-top:#2f3f86; --sky-mid:#a9bdf0; --sky-low:#ffd9c0; --err:#c43d3d;
-  --robot:#2bb3a3; --robot-dark:#16786d; --screen:#14233b; --eye:#7ff7e6;
-  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
-  --body:"Lexend", "Segoe UI", system-ui, sans-serif;
-  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --bg:#f6f3fa; --bg2:#eef4f7; --ink:#3a3450; --muted:#7c7491; --card:#ffffff; --line:#e6e0ef;
+  --lav:#b7a6e6; --lav-soft:#efe9fb; --peach:#ffd6c4; --peach-soft:#fff1ea; --sage:#b6dcc6; --sage-soft:#e9f6ee;
+  --accent:#7d66cf; --ok:#4f9c80; --ok-soft:#e3f3ea; --no:#c9746c; --no-soft:#fbe9e6; --shadow:rgba(80,60,130,.10);
+  --display:"Marcellus", "Palatino Linotype", Georgia, serif;
+  --read:"Literata", Georgia, "Times New Roman", serif;
+  --ui:"Manrope", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --paper:#0e1829; --grid:rgba(140,180,255,.07); --ink:#e7eefb; --muted:#9aa9c2;
-  --card:#15233a; --line:#26385a; --accent:#ff8a45; --accent-ink:#1a0e05; --accent-soft:#3a2416;
-  --teal:#3ccab8; --teal-soft:#123a37; --sun:#ffcf5c; --locked:#33476a; --boss:#a585f0; --boss-soft:#271f45;
-  --sky-top:#0b1233; --sky-mid:#27347a; --sky-low:#6d4a8a; --err:#ff7b7b;
-  --robot:#36c2b1; --robot-dark:#1d8a7d; --screen:#0a1322; --eye:#8ffbea; color-scheme:dark }}
+  --bg:#1d1a29; --bg2:#1a2128; --ink:#ebe6f6; --muted:#a59cbc; --card:#28243a; --line:#3a3452;
+  --lav:#a996e6; --lav-soft:#312a4d; --peach:#f2b9a2; --peach-soft:#3a2b2c; --sage:#8fc2a8; --sage-soft:#22352d;
+  --accent:#b9a8f2; --ok:#86cdb0; --ok-soft:#203a31; --no:#f0a39b; --no-soft:#3f2726; --shadow:rgba(0,0,0,.35); color-scheme:dark }}
 :root[data-theme="dark"]{
-  --paper:#0e1829; --grid:rgba(140,180,255,.07); --ink:#e7eefb; --muted:#9aa9c2;
-  --card:#15233a; --line:#26385a; --accent:#ff8a45; --accent-ink:#1a0e05; --accent-soft:#3a2416;
-  --teal:#3ccab8; --teal-soft:#123a37; --sun:#ffcf5c; --locked:#33476a; --boss:#a585f0; --boss-soft:#271f45;
-  --sky-top:#0b1233; --sky-mid:#27347a; --sky-low:#6d4a8a; --err:#ff7b7b;
-  --robot:#36c2b1; --robot-dark:#1d8a7d; --screen:#0a1322; --eye:#8ffbea; color-scheme:dark }
+  --bg:#1d1a29; --bg2:#1a2128; --ink:#ebe6f6; --muted:#a59cbc; --card:#28243a; --line:#3a3452;
+  --lav:#a996e6; --lav-soft:#312a4d; --peach:#f2b9a2; --peach-soft:#3a2b2c; --sage:#8fc2a8; --sage-soft:#22352d;
+  --accent:#b9a8f2; --ok:#86cdb0; --ok-soft:#203a31; --no:#f0a39b; --no-soft:#3f2726; --shadow:rgba(0,0,0,.35); color-scheme:dark }
 
 *{box-sizing:border-box}
-body{
-  background-color:var(--paper);
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:22px 22px;
-  color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6;
-}
-.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px;display:flex;flex-direction:column;gap:20px}
-h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
+body{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%) fixed;background-color:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 56px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
 
+/* üst bar */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{display:flex;flex-direction:column}
-.brand small{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.brand h1{font-size:1.75rem;font-weight:800}
-.score{display:flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;font-weight:600;font-variant-numeric:tabular-nums}
-.score .star{width:26px;height:26px}
+.hello small{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hello h1{font-size:1.6rem}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 13px;font:600 .82rem var(--ui);font-variant-numeric:tabular-nums}
+button.pill{cursor:pointer}
+button.pill[aria-pressed="true"]{background:var(--lav-soft);border-color:var(--lav)}
+button.pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.bars i{width:3px;background:var(--accent);border-radius:2px;height:4px}
+[aria-pressed="true"] .bars i{animation:eq 1.2s ease-in-out infinite}
+[aria-pressed="true"] .bars i:nth-child(2){animation-delay:.3s}
+[aria-pressed="true"] .bars i:nth-child(3){animation-delay:.6s}
+@keyframes eq{0%,100%{height:3px}50%{height:12px}}
 
-/* 3B sahne */
-.stage{position:relative;border:2px solid var(--ink);border-radius:24px;overflow:hidden;box-shadow:6px 6px 0 var(--ink);
-  background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 55%,var(--sky-low) 100%);height:clamp(300px,62vw,400px);touch-action:pan-y}
-.stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;cursor:grab}
-.stage canvas:active{cursor:grabbing}
-.fallback{position:absolute;inset:0;display:grid;place-items:center;padding-bottom:70px;transition:opacity .6s}
-.fallback svg{width:150px;height:160px;overflow:visible}
-.stage.ready .fallback{opacity:0;pointer-events:none}
-.bubble{position:absolute;left:12px;right:12px;bottom:12px;background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:10px 14px;font-size:.95rem;animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
-.bubble b{font-family:var(--display);font-size:1.02rem;color:var(--teal)}
-.hint3d{position:absolute;top:10px;right:12px;font-size:.72rem;color:#fff;background:rgba(10,18,40,.45);padding:3px 10px;border-radius:999px;letter-spacing:.04em}
-@keyframes pop{from{transform:scale(.9)}to{transform:scale(1)}}
-.burst{position:absolute;left:50%;top:45%;width:0;height:0;pointer-events:none}
-.burst i{position:absolute;width:14px;height:14px;background:var(--sun);clip-path:polygon(50% 0,61% 38%,100% 38%,68% 60%,79% 100%,50% 75%,21% 100%,32% 60%,0 38%,39% 38%);animation:fly 1.2s ease-out forwards}
-@keyframes fly{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--x),var(--y)) scale(1.4) rotate(140deg);opacity:0}}
-.volt{animation:bob 2.6s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* manzara başlığı */
+.hero{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/3;max-width:100%;box-shadow:0 18px 40px -18px var(--shadow);background:var(--lav-soft)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 60%;animation:drift 48s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.02) translateX(0)}to{transform:scale(1.12) translateX(-2.5%)}}
+.motes{position:absolute;inset:0;pointer-events:none}
+.motes i{position:absolute;bottom:-10px;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(1px);animation:rise linear infinite;opacity:0}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-110%) translateX(20px);opacity:0}}
+.hero .veil{position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(180deg,rgba(40,30,70,0) 0%,rgba(40,30,70,.55) 100%)}
+.hero .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 20px 20px;color:#fff;display:flex;flex-direction:column;gap:6px}
+.hero .cap .meta{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.92}
+.hero .cap h2{font-size:clamp(1.55rem,6vw,2.15rem);text-shadow:0 2px 14px rgba(30,20,60,.35)}
 
-/* görev kartı */
-.mission{background:var(--card);border:2px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);overflow:hidden}
-.mission.boss{border-color:var(--boss);box-shadow:6px 6px 0 var(--boss)}
-.m-head{padding:18px 20px 6px;display:flex;flex-direction:column;gap:8px}
-.eyebrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.chip{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--teal-soft);color:var(--teal)}
-.chip.day{background:var(--ink);color:var(--card)}
-.boss .chip{background:var(--boss-soft);color:var(--boss)}
-.boss .chip.day{background:var(--boss);color:var(--card)}
-.m-head h2{font-size:1.65rem;font-weight:800}
-.m-body{padding:4px 20px 18px;display:flex;flex-direction:column;gap:12px}
-.m-body p{margin:0;max-width:62ch}
-.formula{border:2px dashed var(--teal);border-radius:14px;padding:12px 14px;background:var(--teal-soft);display:flex;flex-direction:column;gap:8px}
-.formula .eq{font-family:var(--mono);font-weight:700;font-size:1.35rem;letter-spacing:.02em;color:var(--ink)}
-.formula dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.92rem}
-.formula dt{font-family:var(--mono);font-weight:700;color:var(--teal)}
-.formula dd{margin:0;color:var(--ink)}
+/* okuma */
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 20px}
+.read{display:flex;flex-direction:column;gap:14px;font-family:var(--read);font-size:1.07rem;line-height:1.75}
+.read p{max-width:62ch}
+.read p:first-child::first-letter{font-family:var(--display);float:left;font-size:3.1em;line-height:.9;padding:6px 8px 0 0;color:var(--accent)}
+.know{border-radius:18px;background:var(--peach-soft);border:1px solid var(--peach);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.know svg{flex:0 0 26px;margin-top:2px}
+.know b{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.know p{font-family:var(--read);font-size:.98rem;line-height:1.6}
 
-/* seviye seçici */
-.levels{margin:0 20px 12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:5px}
-.lv{appearance:none;border:0;border-radius:11px;background:transparent;color:var(--muted);font:600 .9rem var(--body);padding:8px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2}
-.lv .st{font-size:.75rem;letter-spacing:.1em;color:var(--sun)}
-.lv[aria-pressed="true"]{background:var(--ink);color:var(--card)}
-.lv.got::after{content:"✓";font-size:.7rem;color:var(--teal)}
-.lv[aria-pressed="true"].got::after{color:var(--eye)}
-.lv:focus-visible{outline:3px solid var(--teal);outline-offset:1px}
+/* test */
+.quiz h3{font-size:1.35rem;margin-bottom:4px}
+.quiz .sub{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+.q{display:flex;flex-direction:column;gap:9px;padding:16px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0;padding-top:4px}
+.q .qs{font-weight:600;line-height:1.45}
+.q .qs span{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.opts{grid-template-columns:1fr}}
+.opt{appearance:none;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:11px 13px;font:500 .95rem var(--ui);cursor:pointer;transition:background .2s,border-color .2s,transform .1s}
+.opt:hover{border-color:var(--lav)}
+.opt:active{transform:scale(.99)}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--no-soft);border-color:var(--no)}
+.opt.dim{opacity:.55}
+.expl{font-family:var(--read);font-size:.95rem;line-height:1.6;color:var(--ink);padding:10px 13px;border-radius:12px;background:var(--lav-soft)}
+.expl b{font-family:var(--ui)}
+.result{margin-top:6px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.score{font-family:var(--display);font-size:1.6rem}
+.note{font-size:.85rem;color:var(--muted)}
 
-.task{margin:0 20px 14px;border-radius:16px;background:var(--accent-soft);border:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
-.boss .task{background:var(--boss-soft);border-color:var(--boss)}
-.task .lbl{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);display:flex;align-items:center;gap:8px}
-.boss .task .lbl{color:var(--boss)}
-.task p{margin:0;font-weight:500}
-.harder{align-self:flex-start;appearance:none;background:none;border:0;padding:2px 0;color:var(--accent);font:600 .9rem var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.boss .harder{color:var(--boss)}
+/* akşam sorusu */
+.talk{background:var(--sage-soft);border:1px solid var(--sage);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.talk b{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.talk p{font-family:var(--display);font-size:1.3rem;line-height:1.35}
 
-.answer{padding:0 20px 20px;display:flex;flex-direction:column;gap:10px}
-.answer label{font-weight:600;font-size:.92rem}
-textarea,.code input{width:100%;border:2px solid var(--line);border-radius:14px;padding:12px;font:inherit;background:var(--paper);color:var(--ink)}
-textarea{min-height:96px;resize:vertical}
-textarea:focus-visible,.code input:focus-visible{outline:3px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
-.actions{display:flex;flex-wrap:wrap;gap:10px}
-.btn{appearance:none;border:2px solid var(--ink);border-radius:14px;padding:10px 16px;font:600 .95rem var(--body);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:var(--card);color:var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .12s, box-shadow .12s}
-.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
-.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.done{background:var(--teal);color:var(--card)}
-.btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
-.note{font-size:.82rem;color:var(--muted);margin:0}
-.linkbtn{appearance:none;background:none;border:0;padding:0;color:var(--teal);font:600 .82rem var(--body);cursor:pointer;text-decoration:underline}
+/* yarın */
+.tomorrow{display:flex;gap:14px;align-items:center;border:1px dashed var(--lav);border-radius:22px;padding:16px 18px;background:color-mix(in srgb, var(--card) 70%, transparent)}
+.tomorrow svg{flex:0 0 44px}
+.tomorrow h3{font-size:1.15rem}
+.tomorrow p{color:var(--muted);font-size:.9rem}
 
-/* kilit kartı */
-.locked{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;border:2px dashed var(--locked);border-radius:20px;padding:16px 18px;background:var(--card)}
-.locked h3{font-size:1.25rem;font-weight:700}
-.locked p{margin:2px 0 0;color:var(--muted);font-size:.93rem}
-.sleepy{width:76px;height:82px;position:relative}
-.sleepy svg{width:100%;height:100%}
-.zz{position:absolute;right:-4px;top:-6px;font-family:var(--display);font-weight:800;color:var(--muted);animation:zz 2.4s ease-in-out infinite}
-.zz:nth-child(3){animation-delay:.8s;right:8px;font-size:.8rem}
-@keyframes zz{0%{transform:translate(0,6px);opacity:0}30%{opacity:1}100%{transform:translate(10px,-18px);opacity:0}}
-.code{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
-.code input{flex:1 1 160px;min-width:0;font-family:var(--mono);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:10px 12px}
-.msg{grid-column:1/-1;margin:0;font-size:.88rem;min-height:1.2em}
-.msg.err{color:var(--err)} .msg.ok{color:var(--teal)}
-.shake{animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+/* geçmiş */
+.past h3{font-size:1.25rem;margin-bottom:10px}
+.plist{display:flex;flex-direction:column;gap:8px}
+.prow{appearance:none;width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:10px 14px;font:inherit;cursor:pointer}
+.prow[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.prow:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.prow .dn{font-family:var(--display);font-size:1.2rem;width:2ch;text-align:center;color:var(--accent);font-variant-numeric:tabular-nums}
+.prow .pt{min-width:0}
+.prow .pt small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.prow .pt span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .ps{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.foot{display:flex;justify-content:center;gap:16px;color:var(--muted);font-size:.82rem}
+.link{appearance:none;background:none;border:0;padding:0;color:var(--accent);font:600 .82rem var(--ui);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
-/* harita */
-.map h3{font-size:1.3rem;font-weight:800;margin-bottom:10px}
-.chapter{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
-.chapter .cl{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.nodes{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.node{aspect-ratio:1;max-width:100%;border-radius:50%;border:2px solid var(--locked);background:var(--card);display:grid;place-items:center;font:700 .95rem var(--display);color:var(--muted);position:relative;font-variant-numeric:tabular-nums;padding:0}
-.node.boss{border-radius:14px}
-.node.open{border-color:var(--ink);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
-.node.open.boss{border-color:var(--boss);color:var(--boss);box-shadow:2px 2px 0 var(--boss)}
-.node.done{background:var(--teal);border-color:var(--teal);color:var(--card);box-shadow:none}
-.node.current{outline:3px solid var(--accent);outline-offset:2px}
-.node.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.node:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.node svg{width:42%;height:42%}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:12px;height:12px;border-radius:50%;border:2px solid var(--locked);display:inline-block}
-.legend i.o{border-color:var(--ink)} .legend i.d{background:var(--teal);border-color:var(--teal)}
+/* isim seçimi */
+.who{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));background:rgba(40,30,70,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.who .box{width:min(420px,100%);background:var(--card);border-radius:26px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 30px 60px -20px rgba(40,30,70,.4)}
+.who h2{font-size:1.7rem}
+.who p{color:var(--muted)}
+.who .names{display:flex;gap:10px;flex-wrap:wrap}
+.who .names button{flex:1 1 120px}
+.btn{appearance:none;border:1px solid var(--accent);background:var(--accent);color:var(--card);border-radius:14px;padding:12px 16px;font:700 .95rem var(--ui);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.who input{border:1px solid var(--line);border-radius:14px;padding:12px;font:500 1rem var(--ui);background:var(--bg);color:var(--ink);width:100%}
+.who input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px}
+.row input{flex:1;min-width:0}
 
-@media (max-width:440px){ .m-head h2{font-size:1.45rem} .lv{font-size:.82rem} }
 @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
 </style>
 
 <div class="wrap">
   <header class="top">
-    <div class="brand"><small>Her gün bir bilim görevi</small><h1>Mert'in Bilim Görevleri</h1></div>
-    <div class="score" aria-live="polite">
-      <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sun)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg>
-      <span id="score">0 yıldız</span>
+    <div class="hello"><small id="today-date"></small><h1 id="greet">Günün Merakı</h1></div>
+    <div class="pills">
+      <span class="pill" id="streak" title="Üst üste gün">0 gün</span>
+      <button class="pill" id="music" type="button" aria-pressed="false" aria-label="Sakin müziği aç veya kapat"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span id="musiclbl">Müzik</span></button>
     </div>
   </header>
 
-  <section class="stage" id="stage" aria-label="Volt ve Pi'nin bilim adası">
-    <div class="fallback" aria-hidden="true">
-      <svg viewBox="0 0 150 160"><g class="volt">
-        <line x1="75" y1="34" x2="75" y2="18" stroke="var(--ink)" stroke-width="3"/>
-        <circle cx="75" cy="14" r="7" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.5"/>
-        <rect x="32" y="34" width="86" height="66" rx="20" fill="var(--robot)" stroke="var(--ink)" stroke-width="3"/>
-        <rect x="44" y="46" width="62" height="40" rx="12" fill="var(--screen)"/>
-        <rect x="56" y="58" width="10" height="16" rx="5" fill="var(--eye)"/><rect x="84" y="58" width="10" height="16" rx="5" fill="var(--eye)"/>
-        <rect x="44" y="102" width="62" height="40" rx="14" fill="var(--robot)" stroke="var(--ink)" stroke-width="3"/>
-        <circle cx="75" cy="121" r="8" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/>
-        <rect x="54" y="140" width="14" height="10" rx="4" fill="var(--robot-dark)" stroke="var(--ink)" stroke-width="2.5"/>
-        <rect x="82" y="140" width="14" height="10" rx="4" fill="var(--robot-dark)" stroke="var(--ink)" stroke-width="2.5"/>
-      </g></svg>
-    </div>
-    <span class="hint3d" id="hint3d" hidden>Sürükle ve adayı çevir</span>
-    <div class="burst" id="burst"></div>
-    <div class="bubble"><b>Volt:</b> <span id="say"></span></div>
+  <section class="hero" id="hero" aria-label="Günün manzarası">
+    <img id="heroimg" alt="" src="">
+    <div class="motes" aria-hidden="true"></div>
+    <div class="veil"></div>
+    <div class="cap"><span class="meta" id="meta"></span><h2 id="title"></h2></div>
   </section>
 
-  <main id="today"></main>
-  <section id="lockedSlot"></section>
-
-  <section class="map" aria-label="Görev haritası">
-    <h3>Görev haritası</h3>
-    <div id="chapters"></div>
-    <div class="legend"><span><i class="d"></i>Tamamlandı</span><span><i class="o"></i>Açık</span><span><i></i>Kilitli</span></div>
-  </section>
+  <article class="card read" id="read"></article>
+  <aside class="know" id="know"></aside>
+  <section class="card quiz" id="quiz"></section>
+  <section class="talk" id="talk" hidden></section>
+  <section id="tomorrow"></section>
+  <section class="past" id="past"></section>
+  <footer class="foot"><span id="whoami"></span><button class="link" id="rename" type="button">Adı değiştir</button></footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<div class="who" id="who" hidden>
+  <form class="box" id="whoform">
+    <h2>Hoş geldiniz</h2>
+    <p>Her gün yeni bir merak açılır. Okuyun, üç soruyu yanıtlayın, akşam üzerine konuşun. Kim okuyor?</p>
+    <div class="names"><button class="btn" type="button" data-name="Ömer">Ömer</button><button class="btn" type="button" data-name="Sema">Sema</button></div>
+    <div class="row"><label for="othername" hidden>Başka bir ad</label><input id="othername" placeholder="Başka bir ad" autocomplete="off"><button class="btn ghost" type="submit">Devam</button></div>
+  </form>
+</div>
+
 <script>
-const OPEN_DAYS = [{"n": 1, "kind": "Fizik + Matematik", "title": "Karakterin gerçekten ne kadar hızlı?", "volt": "Bugün ölçüm günü. Oyundaki karakterler gerçekten ne kadar hızlı, birlikte bakalım.", "blocks": [{"p": "Hız, bir şeyin belli bir sürede ne kadar yol aldığını gösterir. Formülü şöyle:"}, {"f": "v = x / t", "k": [["v", "hız, birimi m/s"], ["x", "alınan yol, metre"], ["t", "geçen süre, saniye"]]}, {"p": "\"5 m/s\" demek, her saniye 5 metre ilerlemek demek."}, {"p": "Oyunlarda karakterler çoğu zaman gerçek insanlardan hızlı koşar. Rahat koşan bir insan yaklaşık 3–4 m/s hızla gider. Usain Bolt ise 100 metreyi yaklaşık 9,6 saniyede koşarak dünya rekoru kırdı. Bu, ortalama 10 m/s'den biraz fazla bir hız."}], "levels": {"isinma": {"tip": "Soru", "gorev": "Bir oyun karakteri 240 metrelik bir yolu 40 saniyede koşuyor. Karakterin hızı kaç m/s?"}, "usta": {"tip": "Soru", "gorev": "A karakteri 6 m/s, B karakteri 4 m/s hızla koşuyor. Aynı noktadan, aynı anda ve aynı yöne çıkıyorlar. 1 dakika sonra aralarında kaç metre olur?"}, "efsane": {"tip": "Soru", "gorev": "400 metrelik bir yarışın ilk yarısını 8 m/s, ikinci yarısını 4 m/s hızla koşuyorsun. Bütün yarış boyunca ortalama hızın kaç m/s olur? Dikkat: Cevap ilk aklına gelen sayı olmayabilir."}}}, {"n": 2, "kind": "Uzay", "title": "Ay'a bakarken geçmişi görüyorsun", "volt": "Işık çok hızlı ama anında gitmez. Bugün bunun ne demek olduğunu göreceğiz.", "blocks": [{"p": "Işık evrendeki en hızlı şeydir, ama bir yerden bir yere gitmesi yine de zaman alır. Boşlukta saniyede yaklaşık 300.000 kilometre yol alır."}, {"p": "Dünkü formülü biraz değiştirirsek süreyi buluruz:"}, {"f": "t = x / v", "k": [["t", "süre, saniye"], ["x", "yol, kilometre"], ["v", "hız, km/saniye"]]}, {"p": "Güneş bizden yaklaşık 150 milyon km uzakta. Bu yüzden Güneş'ten çıkan ışık bize yaklaşık 8 dakika 20 saniyede ulaşır. Şu an gördüğün Güneş, aslında yaklaşık 8 dakika önceki Güneş."}], "levels": {"isinma": {"tip": "Soru", "gorev": "Ay bizden yaklaşık 384.000 km uzakta. Ay'dan yansıyan ışık bize yaklaşık kaç saniyede ulaşır?"}, "usta": {"tip": "Soru", "gorev": "Mars, Dünya'ya en yakın olduğu zamanlarda yaklaşık 55 milyon km uzakta olur. Dünya'dan Mars'taki keşif robotuna gönderilen bir komut, radyo dalgası olarak ışık hızıyla gider. Komut yaklaşık kaç dakikada ulaşır?"}, "efsane": {"tip": "Soru", "gorev": "Mars en uzaktayken bizden yaklaşık 400 milyon km uzaktadır. Robot önünde bir uçurum görüp Dünya'ya haber veriyor, ekip haberi alır almaz \"dur\" komutu gönderiyor. Robot saatte 150 metre hızla ilerliyorsa, komut ulaşana kadar yaklaşık kaç metre daha yol alır?"}}}, {"n": 3, "kind": "Fizik + Matematik", "title": "100 km/sa aslında ne kadar hızlı?", "volt": "Arabalar km/sa der, bilim insanları m/s. Bugün ikisi arasında çevirmen oluyoruz.", "blocks": [{"p": "Arabaların göstergesi hızı km/sa (kilometre/saat) ile gösterir. Bilimde ise çoğunlukla m/s kullanılır. Aralarında geçiş yapmanın kısa bir yolu var:"}, {"f": "1 m/s = 3,6 km/sa", "k": [["1 km", "1000 metre"], ["1 saat", "3600 saniye"]]}, {"p": "m/s'yi km/sa'ye çevirmek için 3,6 ile çarparız, tersine çevirmek için 3,6'ya böleriz. Örneğin 10 m/s, 36 km/sa eder. Şehir içinde 50 km/sa ile giden bir araba, her saniye yaklaşık 14 metre yol alır."}], "levels": {"isinma": {"tip": "Soru", "gorev": "Bir yarış oyununda araç 30 m/s hızla gidiyor. Bu hız kaç km/sa eder?"}, "usta": {"tip": "Soru", "gorev": "Otoyolda bir araba 120 km/sa hızla gidiyor. Sürücü telefonuna 1 saniye bakarsa, bu sürede yolu görmeden kaç metre ilerler?"}, "efsane": {"tip": "Soru", "gorev": "Bir yarışta A aracı 50 m/s, B aracı 170 km/sa hızla gidiyor. B, A'dan 100 metre önde başlıyor. A, B'yi yakalayabilir mi? Yakalarsa kaç saniyede?"}}}, {"n": 4, "kind": "Doğa", "title": "Çita mı, gökdoğan mı, salyangoz mu?", "volt": "Doğada herkesin hızı farklı bir işe yarıyor. En hızlıdan en yavaşa bir tur atalım.", "blocks": [{"p": "Çita, karadaki en hızlı hayvandır. Yaklaşık 100–110 km/sa hıza çıkabilir. Ama bu hızı yalnızca birkaç yüz metre koruyabilir, çünkü vücudu çok çabuk ısınır ve yorulur. Oyunlardaki koşu çubuğunun hızla bitmesine benzer."}, {"p": "Gökyüzündeki rekor gökdoğana ait. Avına dalış yaparken 300 km/sa'yi aşabilir."}, {"p": "Bir de öbür uç var: Bahçe salyangozu saniyede yaklaşık 1 milimetre ilerler."}], "levels": {"isinma": {"tip": "Soru", "gorev": "Salyangoz saniyede yaklaşık 1 milimetre ilerliyor. 1 metrelik bir yolu yaklaşık kaç dakikada tamamlar?"}, "usta": {"tip": "Soru", "gorev": "Bir gökdoğan dalış yaparken 324 km/sa hıza ulaşıyor. Bu hız saniyede kaç metre eder?"}, "efsane": {"tip": "Soru", "gorev": "Bir çita 30 m/s hızla koşabiliyor ama bu hızı en fazla 15 saniye koruyabiliyor. Bir ceylan 20 m/s hızla kaçıyor ve çitadan 160 metre önde. İkisi aynı anda koşmaya başlarsa çita ceylanı yakalayabilir mi? Hesabınla göster."}}}, {"n": 5, "kind": "Fizik + Matematik", "title": "Hızlanmanın da bir hızı var", "volt": "Bir şey bir anda tam hıza çıkamaz. Hızın ne kadar çabuk değiştiğine bakıyoruz.", "blocks": [{"p": "Duran bir araba gaza basılınca bir anda 100 km/sa olmaz, hızı yavaş yavaş artar. Hızın ne kadar çabuk değiştiğine ivme denir."}, {"f": "a = Δv / t", "k": [["a", "ivme, birimi m/s²"], ["Δv", "hızdaki değişim, m/s (Δ: delta, \"değişim\")"], ["t", "değişimin sürdüğü zaman, saniye"]]}, {"p": "\"2 m/s²\" demek, hızın her saniye 2 m/s artması demek. Fren yapmak da bir ivmedir, ama bu kez hız azalır. Asansör kalkarken bir an ağırlaştığını hissetmen de ivmeden kaynaklanır."}], "levels": {"isinma": {"tip": "Soru", "gorev": "Bir oyun aracı duruştan başlıyor ve 4 saniyede 20 m/s hıza ulaşıyor. Aracın ivmesi kaç m/s²?"}, "usta": {"tip": "Soru", "gorev": "30 m/s hızla giden bir araba fren yapıyor ve 6 saniyede tamamen duruyor. Arabanın ivmesi kaç m/s²? İşaretine dikkat et."}, "efsane": {"tip": "Soru", "gorev": "Bir araba duruştan 4 m/s² ivmeyle hızlanıyor. Hızı 100 km/sa'ye kaç saniyede ulaşır?"}}}, {"n": 6, "kind": "Bilim tarihi", "title": "Ağır olan daha hızlı mı düşer?", "volt": "Bugün 400 yıllık bir deneyi kendi elinle tekrar edeceksin. Sadece iki kâğıt yeter.", "blocks": [{"p": "Yaklaşık 2000 yıl boyunca birçok insan, Aristoteles'in görüşüne uyarak ağır cisimlerin daha hızlı düştüğüne inandı. 1600'lerde İtalyan bilim insanı Galileo bunu deneylerle sorguladı. Düşüşü yavaşlatıp ölçebilmek için topları eğik rampalardan yuvarladı."}, {"p": "Vardığı sonuç şuydu: Hava etkisi olmasa, ağır ve hafif cisimler aynı şekilde düşer."}, {"p": "1971'de astronot David Scott bunu Ay'da kameralar önünde denedi. Havası olmayan Ay'da bir çekiçle bir tüyü aynı anda bıraktı ve ikisi yere aynı anda düştü."}], "levels": {"isinma": {"tip": "Gözlem", "gorev": "İki aynı kâğıt al. Birini buruşturup top yap, diğerini düz bırak. İkisini aynı yükseklikten aynı anda bırak. Hangisi önce düşüyor? Ağırlıkları aynıyken sence neden?"}, "usta": {"tip": "Gözlem", "gorev": "Kitaptan küçük bir kâğıdı düz şekilde bir kitabın üstüne koy. Kitabı yatay tutup yatağın ya da halının üstüne, alçaktan bırak. Kâğıt kitaptan ayrılıyor mu? Tek başına düşen düz kâğıttan farkı ne, neden?"}, "efsane": {"tip": "Gözlem", "gorev": "Bir kâğıdı ikiye, sonra dörde, sonra sekize katla. Her seferinde katlı kâğıdı aynı boyda düz bir kâğıtla yarıştır. Katladıkça ne değişiyor? Gözlemlerinden bir kural çıkarabilir misin?"}}}, {"n": 7, "kind": "Bölüm sonu", "title": "Çöken Köprü", "volt": "Bölüm sonu! Bu hafta öğrendiğin her şeye ihtiyacın olacak. Hazırsan başlıyoruz.", "blocks": [{"p": "Karakterin, 180 metre uzunluğundaki eski bir köprünün başında duruyor. Ekranda bir uyarı beliriyor: \"Köprü 20 saniye sonra çökecek!\""}, {"p": "Karakterin normal koşu hızı 18 km/sa. Çantanda bir hız iksiri var. İçtiğin anda hızını 36 km/sa'ye çıkarıyor, ama etkisi yalnızca 10 saniye sürüyor. Sonra normal hızına dönüyorsun."}], "levels": {"isinma": {"tip": "Bölüm sonu görevi", "gorev": "Köprü 90 metre uzunluğunda ve 20 saniye sonra çökecek. Karakterin 18 km/sa hızla koşuyor, iksir yok. Karşıya yetişebilir misin?"}, "usta": {"tip": "Bölüm sonu görevi", "gorev": "Köprü 180 metre ve 20 saniye sonra çökecek. Normal hızın 18 km/sa. İksir hızını 36 km/sa'ye çıkarıyor ama 10 saniye sürüyor. İksiri hemen içip koşarsan köprü çökmeden karşıya ulaşabilir misin? Hesabını adım adım göster."}, "efsane": {"tip": "Bölüm sonu görevi", "gorev": "Aynı köprü: 180 metre, 20 saniye. Normal hızın 18 km/sa ve iksirin etkisi yine 10 saniye. Köprüye tam zamanında yetişebilmen için iksirin hızını en az kaç km/sa'ye çıkarması gerekirdi?"}}}];
-const LOCKED_DAYS = /*__LOCKED__*/[];
-const TOTAL = 30;
-const BOSS = [7,14,21,28,30];
-const LEVELS = [["isinma","Isınma",1],["usta","Usta",2],["efsane","Efsane",3]];
+const GUNLER = [{"n": 1, "kategori": "Bilim tarihi", "sahne": "vadi", "baslik": "Bir sopa ve bir gölgeyle Dünya'yı ölçmek", "okuma": ["MÖ 3. yüzyılda İskenderiye Kütüphanesi'nin başında Eratosthenes adında bir bilgin vardı. Bir gün, güneydeki Siyene kentinde (bugünkü Asvan) yaz gündönümünün öğle vaktinde güneşin bir kuyunun dibine kadar dik vurduğunu, yani cisimlerin gölge bırakmadığını duydu.", "Aynı gün aynı saatte İskenderiye'de dikilen bir çubuk ise kısa bir gölge bırakıyordu. Eratosthenes gölgenin açısını ölçtü: yaklaşık 7,2 derece. Bu, tam bir çemberin ellide biri demekti.", "Mantık basitti: Güneş ışınları paralel geliyorsa ve iki kent arasındaki açı farkı çemberin ellide biriyse, iki kent arasındaki mesafe de Dünya'nın çevresinin ellide biri olmalıydı. Aradaki uzaklığı yaklaşık 5.000 stadion kabul etti ve Dünya'nın çevresini yaklaşık 250.000 stadion buldu.", "Stadionun bugünkü kaç metreye denk geldiği tartışmalı olsa da, hesabın bugün bilinen yaklaşık 40.000 kilometreye şaşırtıcı derecede yakın olduğu kabul edilir. Üstelik bunu yalnızca gözlem, geometri ve sağlam bir akıl yürütmeyle yaptı."], "biliyor": "Eratosthenes, asal sayıları bulmak için bugün hâlâ okullarda öğretilen \"Eratosthenes Kalburu\" yöntemini de geliştirdi.", "sorular": [{"s": "İskenderiye'deki çubuğun gölge açısı yaklaşık kaç dereceydi?", "c": ["7,2", "15", "23,5", "45"], "d": 0, "a": "Eratosthenes açıyı yaklaşık 7,2 derece ölçtü. Bu küçük açı, hesabın anahtarı oldu."}, {"s": "7,2 derece, tam bir çemberin kaçta biridir?", "c": ["Onda biri", "Yirmide biri", "Ellide biri", "Yüzde biri"], "d": 2, "a": "Tam çember 360 derecedir. 360 ÷ 7,2 = 50, yani ellide biri."}, {"s": "Eratosthenes hangi kurumun başındaydı?", "c": ["Atina Akademisi", "İskenderiye Kütüphanesi", "Bergama Kütüphanesi", "Roma Senatosu"], "d": 1, "a": "Antik dünyanın en büyük bilgi merkezi olan İskenderiye Kütüphanesi'nin yöneticisiydi."}], "sohbet": "Elinizde yalnızca bir sopa ve güneş olsaydı, neyi ölçmeyi denerdiniz?"}, {"n": 2, "kategori": "Sanat", "sahne": "safak", "baslik": "Mona Lisa'yı dünyaca ünlü yapan hırsızlık", "okuma": ["Leonardo da Vinci Mona Lisa'yı 1500'lerin başında yapmaya başladı ve yıllarca üzerinde çalıştı. Tablo sanılandan küçüktür: yaklaşık 77 × 53 santimetre. Kavak ağacından bir panel üzerine yapılmıştır.", "Leonardo, renklerin ve gölgelerin keskin çizgiler olmadan, duman gibi birbirine karıştığı \"sfumato\" tekniğini ustalıkla kullandı. Dudakların köşesindeki belirsizlik, gülümsemenin bakış açısına göre değişiyormuş gibi görünmesini sağlar.", "Ancak tablo 20. yüzyılın başına kadar daha çok sanat çevrelerinde biliniyordu. 21 Ağustos 1911 sabahı, Louvre'da daha önce çalışmış İtalyan Vincenzo Peruggia tabloyu müzeden kaçırdı. Gazeteler günlerce bu olayı yazdı; Louvre'daki boş duvarı görmek için kuyruklar oluştu.", "Tablo, yaklaşık iki yıl dört ay sonra, 12 Aralık 1913'te Floransa'da, Peruggia'nın kaldığı otel odasında bulundu. Bu olaydan sonra Mona Lisa, dünyanın en çok tanınan tablosu hâline geldi."], "biliyor": "Hırsızlık soruşturması sırasında şair Guillaume Apollinaire kısa süre tutuklandı, Pablo Picasso da sorgulandı. İkisi de suçsuz çıktı.", "sorular": [{"s": "Mona Lisa hangi yıl Louvre'dan çalındı?", "c": ["1889", "1911", "1923", "1939"], "d": 1, "a": "21 Ağustos 1911 sabahı çalındı ve iki yıldan uzun süre kayıp kaldı."}, {"s": "Renklerin duman gibi birbirine karıştığı tekniğin adı nedir?", "c": ["Fresk", "Sfumato", "Puantilizm", "Kolaj"], "d": 1, "a": "İtalyanca \"duman\" anlamındaki fumo kelimesinden gelen sfumato, keskin hatlar yerine yumuşak geçişler kullanır."}, {"s": "Çalınan tablo hangi şehirde bulundu?", "c": ["Roma", "Milano", "Floransa", "Venedik"], "d": 2, "a": "12 Aralık 1913'te Floransa'da, hırsızın kaldığı otel odasında bulundu."}], "sohbet": "Bir eseri ünlü yapan sizce eserin kendisi mi, yoksa etrafındaki hikâye mi?"}, {"n": 3, "kategori": "Coğrafya", "sahne": "dag", "baslik": "Van Gölü: Sabunsuz yıkayan su", "okuma": ["Van Gölü, yaklaşık 3.713 km² yüzölçümüyle Türkiye'nin en büyük gölüdür. Deniz seviyesinden yaklaşık 1.646 metre yükseklikte yer alır ve en derin yeri 450 metreyi aşar.", "Gölün suyu hem tuzlu hem de sodalıdır; pH değeri 9,8 civarındadır. Bu yüksek alkalilik, suyu çoğu canlı için yaşanmaz kılar. Bölgede eskiden çamaşırların bu suyla sabunsuz yıkandığı anlatılır.", "Bu zorlu suya uyum sağlamış tek balık türü inci kefalidir. Ama inci kefali bile yumurtalarını gölde bırakamaz: Her ilkbaharda binlerce balık, yumurtlamak için göle dökülen tatlı su derelerine doğru akıntıya karşı yüzer. Yavrular derelerde gelişip sonra göle döner.", "Bu göç sırasında balıklar sığ derelerde neredeyse sırt sırta ilerler. Göç döneminde av yasağı uygulanır ve bu doğa olayı her yıl pek çok kişiyi bölgeye çeker."], "biliyor": "Van Gölü'nün suyu sodalı ve tuzlu olduğu için en soğuk kışlarda bile genellikle donmaz.", "sorular": [{"s": "Van Gölü'nün yaklaşık yüzölçümü nedir?", "c": ["750 km²", "1.650 km²", "3.700 km²", "9.000 km²"], "d": 2, "a": "Yaklaşık 3.713 km² ile Türkiye'nin en büyük gölüdür."}, {"s": "Van Gölü'nün suyuna uyum sağlamış tek balık türü hangisidir?", "c": ["Alabalık", "İnci kefali", "Sazan", "Levrek"], "d": 1, "a": "İnci kefali, gölün sodalı ve tuzlu suyunda yaşayabilen tek balık türüdür."}, {"s": "İnci kefali ilkbaharda neden derelere göç eder?", "c": ["Daha sıcak suya gitmek için", "Avcılardan kaçmak için", "Yumurtlamak için tatlı suya ihtiyaç duyduğu için", "Daha fazla yiyecek bulmak için"], "d": 2, "a": "Yumurtaları ve yavruları gölün sodalı suyunda gelişemez; bu yüzden tatlı su derelerine çıkar."}], "sohbet": "Türkiye'de birlikte görmek istediğiniz ama henüz gitmediğiniz bir doğa harikası hangisi?"}, {"n": 4, "kategori": "Edebiyat", "sahne": "tepeler", "baslik": "Kapısı kilitli, duvarı olmayan türbe", "okuma": ["Nasreddin Hoca'nın 13. yüzyılda yaşadığı kabul edilir. Yaygın görüşe göre Eskişehir'in Sivrihisar ilçesine bağlı Hortu köyünde doğdu, ömrünün önemli bir kısmını geçirdiği Akşehir'de öldü.", "Fıkralarının asıl gücü, güldürürken düşündürmesidir. Göle maya çalarken \"Ya tutarsa?\" diyen Hoca, imkânsız görünen işlere girişmenin umudunu anlatır. Kazan doğurdu diye komşusunu sevindiren Hoca, ölen kazanı da kabul ettirmeyi bilir; mantığın kendi silahıyla oynar.", "Akşehir'deki türbesi de ona yakışır bir şakadır: Türbenin önünde kocaman kilitli bir kapı vardır, ama çevresinde duvar yoktur. İsteyen yanından dolaşıp içeri girebilir.", "Fıkraları Balkanlar'dan Orta Asya'ya kadar geniş bir coğrafyada anlatılır; bazı ülkelerde \"Molla Nasreddin\" adıyla bilinir. UNESCO, 1996'da onun doğumunun 800. yılı dolayısıyla anma etkinlikleri düzenledi."], "biliyor": "Göle maya çalma fıkrasındaki \"Ya tutarsa!\" sözü, bugün girişimcilikten bilime pek çok alanda cesaret örneği olarak anılır.", "sorular": [{"s": "Nasreddin Hoca'nın türbesi hangi ilçededir?", "c": ["Sivrihisar", "Akşehir", "Beypazarı", "Safranbolu"], "d": 1, "a": "Hoca Akşehir'de vefat etti; türbesi de buradadır."}, {"s": "Türbenin ünlü özelliği nedir?", "c": ["Hiç kapısı yoktur", "Kapısı kilitlidir ama çevresinde duvar yoktur", "Tavanı camdandır", "Ters inşa edilmiştir"], "d": 1, "a": "Kilitli bir kapı ama açık bir çevre: Hoca'nın mizahının taşa dönüşmüş hâli."}, {"s": "Nasreddin Hoca'nın yaşadığı kabul edilen yüzyıl hangisidir?", "c": ["11. yüzyıl", "13. yüzyıl", "15. yüzyıl", "17. yüzyıl"], "d": 1, "a": "Anadolu Selçuklu döneminin sonlarına denk gelen 13. yüzyılda yaşadığı kabul edilir."}], "sohbet": "İkinize en çok benzeyen Nasreddin Hoca fıkrası hangisi?"}, {"n": 5, "kategori": "Müzik", "sahne": "deniz", "baslik": "Alkışları göremeyen besteci", "okuma": ["Ludwig van Beethoven, Dokuzuncu Senfoni'sini bestelediğinde neredeyse tamamen sağırdı. Eser 7 Mayıs 1824'te Viyana'daki Kärntnertor Tiyatrosu'nda ilk kez seslendirildi.", "Beethoven sahnede şefin yanında durup tempoları gösterdi. Senfoni bittiğinde salon alkışlarla inliyordu, ama Beethoven hâlâ seyirciye sırtı dönük, partisyonuna bakıyordu. Solistlerden kontralto Caroline Unger onu nazikçe seyirciye doğru çevirdi; Beethoven ancak o zaman alkışları gördü.", "Senfoninin son bölümünde, o güne kadar senfonilerde alışılmadık bir şekilde koro ve solistler yer alır. Sözler, Alman şair Friedrich Schiller'in \"Neşeye Övgü\" (An die Freude) şiirinden alınmıştır.", "Bu bölümün ana melodisi bugün Avrupa'nın marşı olarak kullanılır. Avrupa Konseyi 1972'de, Avrupa Birliği kurumları ise 1985'te bu melodiyi benimsedi."], "biliyor": "Avrupa marşı sözsüz çalınır. Böylece belirli bir dile bağlı kalmadan, müziğin herkesin anlayabildiği diliyle ortak değerleri anlatması amaçlanmıştır.", "sorular": [{"s": "Dokuzuncu Senfoni'deki koro bölümünün sözleri hangi şaire aittir?", "c": ["Goethe", "Schiller", "Heine", "Rilke"], "d": 1, "a": "Friedrich Schiller'in \"Neşeye Övgü\" şiiri kullanılmıştır."}, {"s": "Senfoninin ilk seslendirildiği şehir hangisidir?", "c": ["Berlin", "Bonn", "Viyana", "Paris"], "d": 2, "a": "7 Mayıs 1824'te Viyana'daki Kärntnertor Tiyatrosu'nda seslendirildi."}, {"s": "Beethoven'ın alkışları görmesini kim sağladı?", "c": ["Orkestra şefi", "Kardeşi", "Bir solist şarkıcı", "İmparator"], "d": 2, "a": "Kontralto Caroline Unger onu seyirciye doğru çevirdi."}], "sohbet": "Hayatınızda bir müziğin sizi en çok etkilediği an hangisiydi?"}, {"n": 6, "kategori": "Felsefe", "sahne": "vadi", "baslik": "Sinoplu filozof ve \"Gölge etme\"", "okuma": ["Diyojen (Diogenes), MÖ 5. yüzyılın sonlarında bugünkü Sinop'ta doğdu. Daha sonra Atina'ya giderek Kinik okulun en ünlü temsilcisi oldu. \"Kinik\" adı, Yunanca \"köpek gibi\" anlamına gelen kelimeden gelir; çünkü bu filozoflar toplumun kurallarını umursamadan sade, doğal bir hayat sürdü.", "Diyojen'in tüm mal varlığının bir pelerin, bir değnek ve bir çanaktan ibaret olduğu anlatılır. Bir gün bir çocuğun avucuyla su içtiğini görünce çanağını da atmış: \"Bir çocuk bile beni sadelikte geçti.\"", "En ünlü hikâyesi Büyük İskender'le karşılaşmasıdır. İskender güneşlenen filozofun yanına gelip ne dilerse vereceğini söyler. Diyojen'in cevabı Türkçeye şöyle geçmiştir: \"Gölge etme, başka ihsan istemem.\"", "Gündüz vakti elinde bir fenerle sokaklarda dolaşıp \"Dürüst bir insan arıyorum\" dediği de anlatılır. Rivayete göre İskender'le aynı yıl, MÖ 323'te öldü."], "biliyor": "Sinop'ta, elinde feneri ve yanında köpeğiyle duran bir Diyojen heykeli bulunur.", "sorular": [{"s": "Diyojen bugünkü hangi şehirde doğdu?", "c": ["İzmir", "Sinop", "Bodrum", "Trabzon"], "d": 1, "a": "Antik adıyla Sinope, bugünkü Sinop'ta doğdu."}, {"s": "Diyojen'in temsilcisi olduğu felsefe okulu hangisidir?", "c": ["Stoa", "Epikürcülük", "Kinik", "Septik"], "d": 2, "a": "Adını Yunanca \"köpek gibi\" anlamındaki kelimeden alan Kinik okulun en ünlü temsilcisidir."}, {"s": "Diyojen'in gündüz fenerle aradığı söylenen şey neydi?", "c": ["Kaybolan köpeği", "Dürüst bir insan", "Altın para", "Yeni bir ev"], "d": 1, "a": "Gündüz fenerle \"dürüst bir insan\" aradığı anlatılır; toplumu eleştirmenin alaycı bir yolu."}], "sohbet": "Hayatınızdan çıkarsanız rahatlayacağınız bir \"fazlalık\" var mı?"}, {"n": 7, "kategori": "Haftanın tekrarı", "sahne": "tepeler", "baslik": "İlk haftanın küçük sınavı", "okuma": ["Bir haftada antik İskenderiye'den Louvre'a, Van Gölü'nün derelerinden Viyana'nın konser salonuna ve Sinop'un sokaklarına uzandınız.", "Bugün yeni bir konu yok; bu haftanın bilgilerini tazeleme günü. Aşağıdaki beş soru, her günden bir parça içeriyor. Cevaplamadan önce bir dakika durup o günü hatırlamaya çalışın. Bilgiyi kalıcı yapan, onu yeniden çağırmaktır."], "biliyor": "Öğrenilen bir bilgiyi aralıklarla yeniden hatırlamaya çalışmak, onu tekrar tekrar okumaktan çok daha kalıcı bir öğrenme sağlar. Psikolojide buna \"hatırlama pratiği\" denir.", "sorular": [{"s": "Eratosthenes Dünya'nın çevresini hesaplarken hangi iki kentteki gölgeleri karşılaştırdı?", "c": ["Atina ve Roma", "İskenderiye ve Siyene", "Efes ve Milet", "Kahire ve Gize"], "d": 1, "a": "İskenderiye ve güneydeki Siyene (bugünkü Asvan)."}, {"s": "Mona Lisa'yı çalan kişi kimdi?", "c": ["Pablo Picasso", "Vincenzo Peruggia", "Guillaume Apollinaire", "Alfredo Geri"], "d": 1, "a": "Louvre'da daha önce çalışmış İtalyan Vincenzo Peruggia."}, {"s": "Van Gölü'nün suyunun en belirgin özelliği nedir?", "c": ["Tatlı olması", "Sodalı ve tuzlu olması", "Sıcak olması", "Asitli olması"], "d": 1, "a": "Sodalı ve tuzludur; pH değeri 9,8 civarındadır."}, {"s": "Nasreddin Hoca'nın \"Ya tutarsa!\" dediği fıkrada ne yapıyordu?", "c": ["Göle maya çalıyordu", "Eşeğine ters biniyordu", "Kazan ödünç veriyordu", "Ağaçtan düşüyordu"], "d": 0, "a": "Göle maya çalarken \"Ya tutarsa!\" diyordu."}, {"s": "Diyojen İskender'den ne istedi?", "c": ["Altın", "Bir saray", "Güneşini kesmemesini", "Bir ordu"], "d": 2, "a": "\"Gölge etme, başka ihsan istemem\" dedi."}], "sohbet": "Bu haftanın en çok aklınızda kalan konusu hangisiydi, neden?"}];
+const NOTIFY_TOPIC = "mert-bilim-c657911459e06fadccd4";
+const AUTO = NOTIFY_TOPIC.length > 0 && !NOTIFY_TOPIC.startsWith("/*");
+const TZ = "Europe/Istanbul";
 
 const store = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
-let done = store.get("mert.done2", {});          // {"3.usta": true}
-let codes = store.get("mert.codes", {});         // gün no → girilen kod
-let chosen = store.get("mert.level", {});        // {"3": "efsane"}
-const days = [...OPEN_DAYS];
-let selected = 1;
-const latest = () => days.length ? days[days.length-1].n : 0;
-
+const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const lockSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>';
-const crown = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18l1.5-10 5 4.5L12 5l2.5 7.5 5-4.5L21 18z" fill="currentColor"/></svg>';
 
-/* ---------- şifre çözme (kod = babanın WhatsApp'tan verdiği anahtar) ---------- */
-const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-const normCode = s => s.toUpperCase().replace(/[^A-Z0-9ÇĞİÖŞÜ]/g, "");
-async function decryptDay(entry, code){
-  const enc = new TextEncoder();
-  const base = await crypto.subtle.importKey("raw", enc.encode(normCode(code)), "PBKDF2", false, ["deriveKey"]);
-  const key = await crypto.subtle.deriveKey({name:"PBKDF2", salt:b64(entry.salt), iterations:120000, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["decrypt"]);
-  const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:b64(entry.iv)}, key, b64(entry.ct));
-  return JSON.parse(new TextDecoder().decode(pt));
+let name = store.get("merak.ad", "");
+let answers = store.get("merak.cevap", {});   // {"3": [0,2,1]}
+let plan = store.get("merak.plan", null);      // {count, last}
+let streak = store.get("merak.seri", {n:0, last:""});
+let open = [], selected = 1, netOk = true, clockSkew = 0;
+
+/* ---------- bildirim ---------- */
+let outbox = store.get("merak.outbox", []);
+async function flushOutbox(){
+  if(!AUTO || !outbox.length) return true;
+  const rest = [];
+  for(const m of outbox){
+    try{ const r = await fetch("https://ntfy.sh/", {method:"POST", body:JSON.stringify(Object.assign({topic:NOTIFY_TOPIC}, m))}); if(!r.ok) throw 0; }
+    catch(e){ rest.push(m); }
+  }
+  outbox = rest; store.set("merak.outbox", outbox); return rest.length === 0;
 }
-/* ---------- günlük otomatik açılış (Türkiye saati, internetten alınan tarih) ---------- */
-const TZ = "Europe/Istanbul";
-const ALL_DAYS = [...OPEN_DAYS];
+function notify(title, message, tags){ if(!AUTO) return; outbox.push({title, message, tags:tags||[], priority:3}); store.set("merak.outbox", outbox); flushOutbox(); }
+addEventListener("online", flushOutbox);
+
+/* ---------- tarih ve günlük açılış ---------- */
 const dayStr = d => new Intl.DateTimeFormat("en-CA", {timeZone:TZ, year:"numeric", month:"2-digit", day:"2-digit"}).format(d);
-let plan = store.get("mert.plan", null);   // {count: açık gün sayısı, last: son açılış tarihi}
-let netOk = true, clockSkew = 0;
 async function serverNow(){
   try{
     const r = await fetch("manifest.webmanifest?zaman=" + Date.now(), {cache:"no-store"});
     const h = r.headers.get("Date");
-    if(h){ const d = new Date(h); if(!isNaN(d)){ clockSkew = d.getTime() - Date.now(); return d; } }
+    if(h){ const d = new Date(h); if(!isNaN(d)){ clockSkew = d - Date.now(); return d; } }
   }catch(e){}
   return null;
 }
-async function scheduleUnlock(){
+async function schedule(){
   const now = await serverNow(); netOk = !!now;
   const today = dayStr(now || new Date());
   let fresh = 0;
   if(!plan){ plan = {count:1, last:today}; fresh = 1; }
-  else if(now && today > plan.last && plan.count < ALL_DAYS.length){ plan.count += 1; plan.last = today; fresh = plan.count; }
-  store.set("mert.plan", plan);
-  days.length = 0; days.push(...ALL_DAYS.slice(0, plan.count));
+  else if(now && today > plan.last && plan.count < GUNLER.length){ plan.count++; plan.last = today; fresh = plan.count; }
+  store.set("merak.plan", plan);
+  open = GUNLER.slice(0, plan.count);
   return fresh;
 }
 function untilMidnight(){
@@ -270,321 +240,203 @@ function untilMidnight(){
   const left = 86400 - (g("hour")*3600 + g("minute")*60 + g("second"));
   return Math.floor(left/3600) + " sa " + Math.floor((left%3600)/60) + " dk";
 }
-
-/* ---------- puan ---------- */
-function stars(){
-  let s = 0;
-  for(const k in done){ if(!done[k]) continue; const lv = k.split(".")[1]; s += (LEVELS.find(l => l[0]===lv)||[0,0,0])[2]; }
-  return s;
+function greet(){
+  const h = +new Intl.DateTimeFormat("en-GB", {timeZone:TZ, hour:"2-digit", hourCycle:"h23"}).format(new Date(Date.now() + clockSkew));
+  const w = h < 5 ? "İyi geceler" : h < 12 ? "Günaydın" : h < 18 ? "İyi günler" : "İyi akşamlar";
+  $("greet").textContent = name ? w + ", " + name : "Günün Merakı";
+  $("today-date").textContent = new Intl.DateTimeFormat("tr-TR", {timeZone:TZ, weekday:"long", day:"numeric", month:"long"}).format(new Date(Date.now() + clockSkew));
+  $("whoami").textContent = name ? name + " olarak okuyorsunuz" : "";
 }
-function renderScore(){ document.getElementById("score").textContent = stars() + " yıldız"; }
-const dayDone = n => LEVELS.some(([id]) => done[n + "." + id]);
 
-function waLink(text){ return "https://wa.me/?text=" + encodeURIComponent(text); }
+/* ---------- görünüm ---------- */
+function render(){
+  const d = open.find(x => x.n === selected) || open[open.length-1];
+  $("heroimg").src = "manzara/" + d.sahne + ".webp";
+  $("heroimg").alt = "Pastel tonlarda sakin bir manzara";
+  $("meta").textContent = "Gün " + d.n + " · " + d.kategori;
+  $("title").textContent = d.baslik;
+  $("read").innerHTML = d.okuma.map(p => "<p>" + esc(p) + "</p>").join("");
+  $("know").innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5" fill="none" stroke="var(--no)" stroke-width="1.6"/><path d="M9.5 19h5M10 21.5h4M12 10v3" stroke="var(--no)" stroke-width="1.6" stroke-linecap="round"/></svg><div><b>Biliyor muydunuz?</b><p>' + esc(d.biliyor) + "</p></div>";
+  renderQuiz(d);
+  renderTomorrow(); renderPast(); greet();
+  $("streak").textContent = streak.n + " gün üst üste";
+}
 
-/* ---------- babaya otomatik bildirim (ntfy) ---------- */
-const NOTIFY_TOPIC = "mert-bilim-c657911459e06fadccd4";
-const AUTO = NOTIFY_TOPIC.length > 0 && !NOTIFY_TOPIC.startsWith("/*");
-let outbox = store.get("mert.outbox", []);
-async function flushOutbox(){
-  if(!AUTO || !outbox.length) return;
-  const rest = [];
-  for(const m of outbox){
-    try{
-      const r = await fetch("https://ntfy.sh/", {method:"POST", body:JSON.stringify(Object.assign({topic:NOTIFY_TOPIC}, m))});
-      if(!r.ok) throw new Error(r.status);
-    }catch(e){ rest.push(m); }
+function renderQuiz(d){
+  const a = answers[d.n] || [];
+  const doneAll = a.length === d.sorular.length && a.every(x => x !== null && x !== undefined);
+  const right = d.sorular.filter((q, i) => a[i] === q.d).length;
+  let html = "<h3>Üç soruda pekiştirin</h3><p class=\"sub\">Bir seçeneğe dokunun; doğru cevap ve kısa açıklaması hemen görünür.</p>";
+  d.sorular.forEach((q, i) => {
+    const picked = a[i];
+    const answered = picked !== undefined && picked !== null;
+    html += '<div class="q"><p class="qs"><span>' + (i+1) + ".</span>" + esc(q.s) + '</p><div class="opts">' +
+      q.c.map((c, j) => {
+        let cls = "opt";
+        if(answered){ cls += j === q.d ? " right" : (j === picked ? " wrong" : " dim"); }
+        return '<button type="button" class="' + cls + '" data-q="' + i + '" data-c="' + j + '"' + (answered ? " disabled" : "") + ">" + esc(c) + "</button>";
+      }).join("") + "</div>" +
+      (answered ? '<p class="expl"><b>' + (picked === q.d ? "Doğru. " : "Doğru cevap: " + esc(q.c[q.d]) + ". ") + "</b>" + esc(q.a) + "</p>" : "") +
+      "</div>";
+  });
+  if(doneAll){
+    html += '<div class="result"><span class="score">' + right + " / " + d.sorular.length + "</span><span class=\"note\">" +
+      (right === d.sorular.length ? "Hepsi doğru. Bugünün merakı tamam." : "Güzel bir okuma. Yanlışlar da öğrenmenin parçası.") + "</span></div>";
   }
-  outbox = rest; store.set("mert.outbox", outbox);
-  return rest.length === 0;
+  $("quiz").innerHTML = html;
+  $("quiz").querySelectorAll(".opt:not([disabled])").forEach(b => b.addEventListener("click", () => pick(d, +b.dataset.q, +b.dataset.c)));
+  const talk = $("talk");
+  talk.hidden = !doneAll;
+  talk.innerHTML = "<b>Bu akşam konuşun</b><p>" + esc(d.sohbet) + "</p>";
 }
-function notifyDad(title, message, tags){
-  if(!AUTO) return Promise.resolve(false);
-  outbox.push({title, message, tags: tags || [], priority: 4}); store.set("mert.outbox", outbox);
-  return flushOutbox();
-}
-addEventListener("online", flushOutbox);
 
-/* ---------- bugünün görevi ---------- */
-function renderToday(){
-  const host = document.getElementById("today");
-  const d = days.find(x => x.n === selected) || days[days.length-1];
-  const isBoss = BOSS.includes(d.n);
-  const lvId = chosen[d.n] || "usta";
-  const lv = d.levels[lvId];
-  const lvMeta = LEVELS.find(l => l[0] === lvId);
-  say(d.n === latest() ? d.volt : "Gün " + d.n + " görevine geri döndün. Başka bir seviyeyi denemeye ne dersin?");
-  const blocks = d.blocks.map(b => {
-    if(b.p) return "<p>" + esc(b.p) + "</p>";
-    if(b.f) return '<div class="formula"><div class="eq">' + esc(b.f) + "</div>" +
-      (b.k ? "<dl>" + b.k.map(([s,m]) => "<dt>" + esc(s) + "</dt><dd>" + esc(m) + "</dd>").join("") + "</dl>" : "") + "</div>";
-    return "";
-  }).join("");
-  const key = d.n + "." + lvId;
-  const draft = store.get("mert.ans." + key, "");
-  const isDone = !!done[key];
-  const nextLv = LEVELS[LEVELS.findIndex(l => l[0]===lvId) + 1];
-  host.innerHTML =
-    '<article class="mission' + (isBoss ? " boss" : "") + '">' +
-      '<div class="m-head"><div class="eyebrow"><span class="chip day">Gün ' + d.n + '</span><span class="chip">' + esc(d.kind) + '</span></div>' +
-      "<h2>" + esc(d.title) + "</h2></div>" +
-      '<div class="m-body">' + blocks + "</div>" +
-      '<div class="levels" role="group" aria-label="Zorluk seviyesi">' +
-        LEVELS.map(([id, name, st]) => '<button type="button" class="lv' + (done[d.n + "." + id] ? " got" : "") + '" data-lv="' + id + '" aria-pressed="' + (id===lvId) + '"><span>' + name + '</span><span class="st">' + "★".repeat(st) + "</span></button>").join("") +
-      "</div>" +
-      '<div class="task"><div class="lbl">' + (isBoss ? crown.replace("<svg",'<svg width="20" height="20"') : '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>') +
-        esc(lv.tip) + " · " + lvMeta[1] + "</div><p>" + esc(lv.gorev) + "</p>" +
-        (nextLv ? '<button type="button" class="harder" id="harder">Kolay mı geldi? ' + nextLv[1] + " seviyesine geç</button>" : "") +
-      "</div>" +
-      '<div class="answer">' +
-        '<label for="ans">Cevabın ve nasıl düşündüğün</label>' +
-        '<textarea id="ans" placeholder="Cevabını ve hesabını buraya yaz. Emin olmasan da yaz, düşünme yolun önemli.">' + esc(draft) + "</textarea>" +
-        '<div class="actions">' + (AUTO
-          ? '<button class="btn primary" id="finish" type="button"></button><button class="btn" id="hint" type="button">İpucu iste</button>'
-          : '<a class="btn primary" id="send" target="_blank" rel="noopener">Cevabımı babama gönder</a>' +
-            '<a class="btn" id="hint" target="_blank" rel="noopener">İpucu iste</a>' +
-            '<button class="btn' + (isDone ? " done" : "") + '" id="finish" type="button">' + (isDone ? "Tamamlandı ✓" : "Tamamladım +" + lvMeta[2] + " ★") + "</button>") +
-        "</div>" +
-        (AUTO
-          ? '<p class="note" id="sendnote">Bitirdiğinde cevabın babana otomatik gider. İpucu isteğin de ona bildirim olarak ulaşır.</p>'
-          : '<p class="note">Gönder ve ipucu düğmeleri WhatsApp\'ı açar; mesajı babana sen gönderirsin. Açılmazsa <button class="linkbtn" id="copy" type="button">cevabı kopyala</button>.</p>') +
-      "</div>" +
-    "</article>";
-
-  host.querySelectorAll(".lv").forEach(b => b.addEventListener("click", () => setLevel(d.n, b.dataset.lv)));
-  const h = document.getElementById("harder"); if(h) h.addEventListener("click", () => setLevel(d.n, nextLv[0]));
-  const ans = document.getElementById("ans");
-  const msg = () => "Gün " + d.n + " – " + d.title + " (" + lvMeta[1] + ")\nCevabım: " + (ans.value.trim() || "…");
-  const sentKey = "mert.sent." + key;
-  if(AUTO){
-    const fin = document.getElementById("finish"), note = document.getElementById("sendnote");
-    const paint = () => {
-      const txt = ans.value.trim(), sent = store.get(sentKey, null);
-      if(isDone && sent === txt){ fin.textContent = "Babana gönderildi ✓"; fin.className = "btn done"; fin.setAttribute("aria-disabled","true"); }
-      else if(isDone){ fin.textContent = "Yeni cevabı gönder"; fin.className = "btn primary"; fin.setAttribute("aria-disabled", txt ? "false" : "true"); }
-      else { fin.textContent = "Bitirdim, babama gönder +" + lvMeta[2] + " ★"; fin.className = "btn primary"; fin.setAttribute("aria-disabled", txt ? "false" : "true"); }
-    };
-    ans.addEventListener("input", () => { store.set("mert.ans." + key, ans.value); paint(); }); paint();
-    fin.addEventListener("click", async () => {
-      const txt = ans.value.trim(); if(!txt) return;
-      const first = !done[key];
-      done[key] = true; store.set("mert.done2", done); store.set(sentKey, txt);
-      const ok = await notifyDad((first ? "Mert Gün " + d.n + "'i bitirdi" : "Mert Gün " + d.n + " cevabını güncelledi") + " · " + lvMeta[1],
-        d.title + "\n\nCevabı: " + txt, first ? ["white_check_mark"] : ["pencil2"]);
-      if(first){ celebrate(); say(lvId === "efsane" ? "Efsane seviye! Bunu çözen az kişi olur. Cevabın babana gitti." : "Görev tamam, cevabın babana gitti! İstersen aynı konuyu bir üst seviyede dene."); }
-      renderScore(); renderToday(); renderMap();
-      if(!ok){ const n2 = document.getElementById("sendnote"); if(n2) n2.textContent = "İnternet yok gibi görünüyor. Cevabın kaydedildi, bağlantı gelince babana otomatik gidecek."; }
-    });
-    document.getElementById("hint").addEventListener("click", async e => {
-      const ok = await notifyDad("Mert ipucu istiyor · Gün " + d.n, d.title + " (" + lvMeta[1] + ")", ["bulb"]);
-      e.target.textContent = ok ? "İpucu isteği gitti" : "İstek kaydedildi";
-      e.target.setAttribute("aria-disabled","true");
-      say("Babana haber verdim. Beklerken soruyu küçük parçalara bölmeyi dene.");
-    });
-    return;
+function pick(d, qi, ci){
+  const a = answers[d.n] || new Array(d.sorular.length).fill(null);
+  if(a[qi] !== null && a[qi] !== undefined) return;
+  a[qi] = ci; answers[d.n] = a; store.set("merak.cevap", answers);
+  const doneAll = a.every(x => x !== null && x !== undefined);
+  if(doneAll){
+    const right = d.sorular.filter((q, i) => a[i] === q.d).length;
+    const today = plan.last;
+    if(streak.last !== today){
+      const y = new Date(today + "T12:00:00Z"); y.setUTCDate(y.getUTCDate() - 1);
+      streak.n = streak.last === y.toISOString().slice(0,10) ? streak.n + 1 : 1; streak.last = today; store.set("merak.seri", streak);
+    }
+    notify((name || "Biri") + " Gün " + d.n + "'i bitirdi · " + right + "/" + d.sorular.length, d.baslik + "\n\nBu akşamın sorusu: " + d.sohbet, right === d.sorular.length ? ["sparkles"] : ["books"]);
   }
-  const send = document.getElementById("send");
-  const sync = () => {
-    send.href = waLink(msg());
-    send.setAttribute("aria-disabled", ans.value.trim() ? "false" : "true");
-    store.set("mert.ans." + key, ans.value);
+  render();
+  if(doneAll) setTimeout(() => $("talk").scrollIntoView({behavior:"smooth", block:"center"}), 250);
+}
+
+function renderTomorrow(){
+  const host = $("tomorrow");
+  const next = plan.count + 1;
+  const ready = next <= GUNLER.length;
+  host.innerHTML = '<div class="tomorrow"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="var(--lav-soft)"/><path d="M27 12a11 11 0 1 0 5 17 9 9 0 0 1-5-17z" fill="var(--lav)"/><circle cx="13" cy="14" r="1.4" fill="var(--accent)"/><circle cx="33" cy="33" r="1" fill="var(--accent)"/></svg>' +
+    "<div><h3>" + (ready ? "Yarın yeni bir merak" : "Yeni meraklar hazırlanıyor") + "</h3><p>" +
+    (ready ? 'Gün ' + next + ' gece yarısından sonra kendiliğinden açılacak. Kalan süre: <b id="cd">' + untilMidnight() + "</b>" : "Yakında yeni günler eklenecek.") +
+    (netOk ? "" : "<br>Yeni günün açılması için internete bağlı olun.") + "</p></div></div>";
+}
+
+function renderPast(){
+  if(open.length < 2){ $("past").innerHTML = ""; return; }
+  $("past").innerHTML = "<h3>Geçmiş meraklar</h3><div class=\"plist\">" + open.slice().reverse().map(d => {
+    const a = answers[d.n] || [];
+    const done = a.length === d.sorular.length && a.every(x => x !== null && x !== undefined);
+    const right = d.sorular.filter((q, i) => a[i] === q.d).length;
+    return '<button type="button" class="prow" data-n="' + d.n + '" aria-current="' + (d.n === selected) + '"><span class="dn">' + d.n + '</span><span class="pt"><small>' + esc(d.kategori) + "</small><span>" + esc(d.baslik) + '</span></span><span class="ps">' + (done ? right + "/" + d.sorular.length : "okunmadı") + "</span></button>";
+  }).join("") + "</div>";
+  $("past").querySelectorAll(".prow").forEach(b => b.addEventListener("click", () => { selected = +b.dataset.n; render(); window.scrollTo({top:0, behavior:"smooth"}); }));
+}
+
+/* ---------- uçuşan ışık zerreleri ---------- */
+(function motes(){
+  const host = document.querySelector(".motes"); let h = "";
+  for(let i=0;i<14;i++){ h += '<i style="left:' + (Math.random()*100).toFixed(1) + "%;animation-duration:" + (14 + Math.random()*16).toFixed(1) + "s;animation-delay:-" + (Math.random()*20).toFixed(1) + "s;width:" + (3 + Math.random()*5).toFixed(1) + "px;height:" + (3 + Math.random()*5).toFixed(1) + 'px"></i>'; }
+  host.innerHTML = h;
+})();
+
+/* ---------- sakin ambiyans müziği (tarayıcıda canlı üretilir) ---------- */
+const Ambient = (() => {
+  let ctx, master, verb, timers = [], on = false;
+  const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+  const CHORDS = [[48,55,64,71],[45,52,60,67],[41,48,57,64],[43,50,59,62]];
+  const BELLS = [72,74,76,79,81,84,86,88];
+  function impulse(sec){
+    const len = ctx.sampleRate * sec, b = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(let c=0;c<2;c++){ const d = b.getChannelData(c); for(let i=0;i<len;i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.6); }
+    return b;
+  }
+  function pad(notes, t){
+    notes.forEach(m => {
+      ["sine","triangle"].forEach((type, k) => {
+        const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+        o.type = type; o.frequency.value = hz(m); o.detune.value = k ? 5 : -4;
+        f.type = "lowpass"; f.frequency.value = 900;
+        g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(k ? .022 : .035, t + 3.5); g.gain.setValueAtTime(k ? .022 : .035, t + 7); g.gain.linearRampToValueAtTime(0, t + 12);
+        o.connect(f).connect(g); g.connect(master); g.connect(verb);
+        o.start(t); o.stop(t + 12.2);
+      });
+    });
+  }
+  function bell(t){
+    const m = BELLS[Math.floor(Math.random()*BELLS.length)];
+    const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "sine"; o.frequency.value = hz(m); o2.type = "sine"; o2.frequency.value = hz(m) * 2.01;
+    const g2 = ctx.createGain(); g2.gain.value = .25;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.05, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + 4);
+    o.connect(g); o2.connect(g2).connect(g); g.connect(verb); g.connect(master);
+    o.start(t); o2.start(t); o.stop(t + 4.1); o2.stop(t + 4.1);
+  }
+  function waves(){
+    const len = ctx.sampleRate * 4, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0);
+    let last = 0; for(let i=0;i<len;i++){ last = (last + .02*(Math.random()*2-1)) / 1.02; d[i] = last * 3.5; }
+    const s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 500;
+    const g = ctx.createGain(); g.gain.value = .05;
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = .08; lg.gain.value = .04;
+    lfo.connect(lg).connect(g.gain);
+    s.connect(f).connect(g).connect(master); s.start(); lfo.start();
+  }
+  function loop(){
+    let i = 0;
+    const chord = () => { if(!on) return; pad(CHORDS[i++ % CHORDS.length], ctx.currentTime + .05); timers.push(setTimeout(chord, 9000)); };
+    const ring = () => { if(!on) return; bell(ctx.currentTime + .05); timers.push(setTimeout(ring, 2200 + Math.random()*4200)); };
+    chord(); timers.push(setTimeout(ring, 1500));
+  }
+  return {
+    async start(){
+      if(!ctx){
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+        verb = ctx.createConvolver(); verb.buffer = impulse(5); const vg = ctx.createGain(); vg.gain.value = .55; verb.connect(vg).connect(master);
+        waves();
+      }
+      await ctx.resume(); on = true;
+      master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.9, ctx.currentTime, 1.5);
+      loop();
+    },
+    stop(){
+      on = false; timers.forEach(clearTimeout); timers = [];
+      if(ctx){ master.gain.setTargetAtTime(0, ctx.currentTime, .6); setTimeout(() => { if(!on) ctx.suspend(); }, 2500); }
+    },
+    get on(){ return on; }
   };
-  document.getElementById("hint").href = waLink("Gün " + d.n + " (" + lvMeta[1] + ") için bir ipucu alabilir miyim? " + d.title);
-  ans.addEventListener("input", sync); sync();
-  document.getElementById("copy").addEventListener("click", async () => {
-    try{ await navigator.clipboard.writeText(msg()); document.getElementById("copy").textContent = "kopyalandı"; }
-    catch(e){ ans.focus(); ans.select(); }
-  });
-  document.getElementById("finish").addEventListener("click", () => {
-    done[key] = !done[key]; store.set("mert.done2", done);
-    if(done[key]){ celebrate(); say(lvId === "efsane" ? "Efsane seviye! Bunu çözen az kişi olur. Babana nasıl düşündüğünü anlat." : "Görev tamam! İstersen aynı konuyu bir üst seviyede dene."); }
-    renderScore(); renderToday(); renderMap();
-  });
+})();
+$("music").addEventListener("click", async () => {
+  const b = $("music");
+  if(Ambient.on){ Ambient.stop(); b.setAttribute("aria-pressed","false"); $("musiclbl").textContent = "Müzik"; store.set("merak.muzik", false); }
+  else { try{ await Ambient.start(); b.setAttribute("aria-pressed","true"); $("musiclbl").textContent = "Müzik açık"; store.set("merak.muzik", true); }catch(e){ $("musiclbl").textContent = "Müzik çalmadı"; } }
+});
+document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden" && Ambient.on){ Ambient.stop(); $("music").setAttribute("aria-pressed","false"); $("musiclbl").textContent = "Müzik"; } });
+
+/* ---------- isim ---------- */
+function askName(){
+  $("who").hidden = false;
+  $("who").querySelectorAll("[data-name]").forEach(b => b.onclick = () => setName(b.dataset.name));
+  $("whoform").onsubmit = e => { e.preventDefault(); const v = $("othername").value.trim(); if(v) setName(v.slice(0, 24)); };
 }
-function setLevel(n, id){ chosen[n] = id; store.set("mert.level", chosen); renderToday(); if(id === "efsane") world.spin && world.spin(); }
-
-/* ---------- kilit kartı ---------- */
-let lockTimer = null;
-function renderLocked(){
-  const slot = document.getElementById("lockedSlot");
-  const next = latest() + 1;
-  clearInterval(lockTimer);
-  if(next > TOTAL){ slot.innerHTML = ""; return; }
-  const ready = next <= ALL_DAYS.length;
-  slot.innerHTML =
-    '<div class="locked" id="lockcard"><div class="sleepy">' +
-      '<svg viewBox="0 0 150 160" aria-hidden="true"><line x1="75" y1="34" x2="75" y2="20" stroke="var(--muted)" stroke-width="3"/><circle cx="75" cy="15" r="6" fill="var(--locked)" stroke="var(--muted)" stroke-width="2.5"/>' +
-      '<rect x="32" y="34" width="86" height="66" rx="20" fill="var(--locked)" stroke="var(--muted)" stroke-width="3"/><rect x="44" y="46" width="62" height="40" rx="12" fill="var(--screen)"/>' +
-      '<path d="M54 68 q6 5 12 0 M84 68 q6 5 12 0" stroke="var(--eye)" stroke-width="3" fill="none" stroke-linecap="round"/>' +
-      '<rect x="44" y="102" width="62" height="40" rx="14" fill="var(--locked)" stroke="var(--muted)" stroke-width="3"/></svg>' +
-      '<span class="zz">Z</span><span class="zz">z</span></div>' +
-      "<div><h3>" + (ready ? "Gün " + next + " yarın açılıyor" : "Gün " + next + " hazırlanıyor") + "</h3><p>" +
-      (ready ? 'Volt şarj oluyor. Yeni görev gece yarısından sonra kendiliğinden açılacak. Kalan süre: <b id="countdown">' + untilMidnight() + "</b>"
-             : "Yeni görevler yakında eklenecek. Bu arada açık görevlerde Efsane seviyeyi denemeye ne dersin?") +
-      (netOk ? "" : "<br>Yeni görevin açılması için internete bağlı olman gerekiyor.") +
-      "</p></div></div>";
-  if(ready) lockTimer = setInterval(() => { const c = document.getElementById("countdown"); if(c) c.textContent = untilMidnight(); }, 30000);
+function setName(n){
+  const first = !name; name = n; store.set("merak.ad", n); $("who").hidden = true; greet();
+  if(first) notify(n + " Günün Merakı'na katıldı", "İlk gün: " + open[0].baslik, ["wave"]);
 }
+$("rename").addEventListener("click", askName);
 
-/* ---------- harita ---------- */
-function renderMap(){
-  const host = document.getElementById("chapters");
-  const open = new Set(days.map(d => d.n));
-  const groups = [[1,7,"Bölüm 1 · Hız ve hareket"],[8,14,"Bölüm 2 · Yerçekimi ve kuvvet"],[15,21,"Bölüm 3 · Enerji, elektrik, ışık"],[22,28,"Bölüm 4 · Ses, olasılık, geometri"],[29,30,"Final"]];
-  host.innerHTML = groups.map(([a,b,label]) => {
-    let nodes = "";
-    for(let n=a;n<=b;n++){
-      const isBoss = BOSS.includes(n), isOpen = open.has(n), isDone = dayDone(n);
-      const cls = ["node", isBoss?"boss":"", isOpen?"open":"", isDone?"done":"", n===latest()?"current":"", n===selected && isOpen?"sel":""].filter(Boolean).join(" ");
-      const inner = isOpen ? (isDone ? "✓" : n) : (isBoss ? crown : lockSvg);
-      nodes += isOpen
-        ? '<button type="button" class="' + cls + '" data-n="' + n + '" aria-label="Gün ' + n + (isDone?" tamamlandı":"") + '">' + inner + "</button>"
-        : '<div class="' + cls + '" aria-label="Gün ' + n + ' kilitli">' + inner + "</div>";
-    }
-    return '<div class="chapter"><div class="cl">' + label + '</div><div class="nodes">' + nodes + "</div></div>";
-  }).join("");
-  host.querySelectorAll("button.node").forEach(btn => btn.addEventListener("click", () => {
-    selected = +btn.dataset.n; renderToday(); renderMap();
-    document.getElementById("today").scrollIntoView({behavior:"smooth", block:"start"});
-  }));
-}
-
-function say(t){ document.getElementById("say").textContent = t; }
-
-/* ---------- 3B dünya ---------- */
-const world = {};
-function celebrate(){
-  const b = document.getElementById("burst"); b.innerHTML = "";
-  for(let i=0;i<14;i++){
-    const a = (Math.PI*2*i)/14, r = 90 + Math.random()*50, s = document.createElement("i");
-    s.style.setProperty("--x", Math.cos(a)*r + "px"); s.style.setProperty("--y", Math.sin(a)*r + "px"); b.appendChild(s);
-  }
-  world.jump && world.jump();
-}
-
-function init3D(){
-  const stage = document.getElementById("stage");
-  if(!window.THREE || !THREE.GLTFLoader) return;
-  let renderer;
-  try{ renderer = new THREE.WebGLRenderer({antialias:true, alpha:true}); }catch(e){ return; }
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  stage.prepend(renderer.domElement);
-  const scene = new THREE.Scene();
-  const cam = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  const target = new THREE.Vector3(0, 0.95, 0);
-  scene.add(new THREE.HemisphereLight(0xcfe0ff, 0x8a6f9e, 0.9));
-  const sun = new THREE.DirectionalLight(0xfff1de, 1.6); sun.position.set(4, 8, 5); sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, {left:-4, right:4, top:4, bottom:-4}); sun.shadow.bias = -0.0008;
-  scene.add(sun);
-  const rim = new THREE.DirectionalLight(0xffb27a, 0.7); rim.position.set(-2, 4, -5); scene.add(rim);
-
-  // yıldızlar (gece temasında belirgin)
-  const sg = new THREE.BufferGeometry(), sp = [];
-  for(let i=0;i<120;i++){ const a = Math.random()*Math.PI*2, r = 14 + Math.random()*8; sp.push(Math.cos(a)*r, 2 + Math.random()*10, Math.sin(a)*r); }
-  sg.setAttribute("position", new THREE.Float32BufferAttribute(sp, 3));
-  const starsObj = new THREE.Points(sg, new THREE.PointsMaterial({color:0xfff4c2, size:0.12, transparent:true, opacity:.85}));
-  scene.add(starsObj);
-
-  const root = new THREE.Group(); scene.add(root);
-  const N = {};
-  let t0 = performance.now(), jumpAt = -10, spinAt = -10, yaw = -0.35, yawVel = 0, dragging = false, lastX = 0, autoYaw = true;
-
-  new THREE.GLTFLoader().load("mert_dunyasi.json", gltf => {
-    const m = gltf.scene;
-    m.traverse(o => {
-      if(o.name) N[o.name] = o;
-      if(o.isMesh){ o.castShadow = true; o.receiveShadow = true; if(o.material && o.material.emissive && o.material.emissiveIntensity) o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 2.5); }
-    });
-    root.add(m);
-    N.base = {}; ["Volt","Pi_Yorunge","Volt_Kafa","Volt_Kol_Sag","Gezegen","Cisim_Ikosahedron","Cisim_Kup","Cisim_Piramit","Cisim_Torus"].forEach(k => {
-      if(N[k]) N.base[k] = {p:N[k].position.clone(), r:N[k].rotation.clone()};
-    });
-    stage.classList.add("ready");
-    document.getElementById("hint3d").hidden = false;
-    setTimeout(() => { document.getElementById("hint3d").hidden = true; }, 5000);
-  }, undefined, () => { renderer.domElement.remove(); });
-
-  function resize(){
-    const w = stage.clientWidth, h = stage.clientHeight;
-    renderer.setSize(w, h, false); cam.aspect = w / h;
-    const dist = w < 480 ? 8.6 : 7.4;
-    cam.position.set(0, 2.9, dist); cam.lookAt(target); cam.updateProjectionMatrix();
-  }
-  new ResizeObserver(resize).observe(stage); resize();
-
-  const el = renderer.domElement;
-  el.addEventListener("pointerdown", e => { dragging = true; autoYaw = false; lastX = e.clientX; el.setPointerCapture(e.pointerId); });
-  el.addEventListener("pointermove", e => { if(!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; yawVel = dx * 0.008; yaw += yawVel; });
-  el.addEventListener("pointerup", () => { dragging = false; });
-  el.addEventListener("pointercancel", () => { dragging = false; });
-  el.addEventListener("click", () => { world.jump(); });
-
-  world.jump = () => { jumpAt = (performance.now() - t0) / 1000; };
-  world.spin = () => { spinAt = (performance.now() - t0) / 1000; };
-
-  const dark = () => { const a = document.documentElement.dataset.theme; return a ? a === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
-  let visible = true;
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(stage);
-
-  function frame(now){
-    requestAnimationFrame(frame);
-    if(!visible) return;
-    const t = (now - t0) / 1000, B = N.base || {};
-    const nightOn = dark();
-    starsObj.material.opacity = nightOn ? .9 : .25;
-    sun.intensity = nightOn ? 1.0 : 1.6;
-    if(!dragging){ yawVel *= 0.92; yaw += yawVel; if(autoYaw && !reduce) yaw = -0.35 + Math.sin(t * 0.25) * 0.35; }
-    root.rotation.y = yaw;
-    if(N.Volt && B.Volt){
-      const jt = t - jumpAt, jump = jt >= 0 && jt < 1 ? Math.sin(jt * Math.PI) * 0.75 : 0;
-      const st = t - spinAt, spin = st >= 0 && st < 1.2 ? (1 - Math.cos(st / 1.2 * Math.PI)) * Math.PI : 0;
-      N.Volt.position.y = B.Volt.p.y + (reduce ? 0 : Math.sin(t * 2.4) * 0.04) + jump;
-      N.Volt.rotation.y = B.Volt.r.y + spin + (jt >= 0 && jt < 1 ? jt * Math.PI * 2 : 0);
-    }
-    if(N.Volt_Kafa && B.Volt_Kafa && !reduce){ N.Volt_Kafa.rotation.z = B.Volt_Kafa.r.z + Math.sin(t * 1.3) * 0.06; N.Volt_Kafa.rotation.y = B.Volt_Kafa.r.y + Math.sin(t * 0.7) * 0.12; }
-    const blink = (t % 4.2) > 4.05 ? 0.12 : 1;
-    ["Volt_Goz_Sol","Volt_Goz_Sag"].forEach(k => { if(N[k]) N[k].scale.y = blink; });
-    if(N.Volt_Kol_Sag && B.Volt_Kol_Sag && !reduce){ const w = t % 3.2; N.Volt_Kol_Sag.rotation.z = B.Volt_Kol_Sag.r.z + (w < 1.2 ? Math.sin(w * Math.PI * 2.5) * 0.35 : 0); }
-    if(N.Volt_Anten_Isik && N.Volt_Anten_Isik.material) N.Volt_Anten_Isik.material.emissiveIntensity = 1.2 + Math.sin(t * 4) * 0.9;
-    if(N.Pi_Yorunge && !reduce){ const fast = (t - jumpAt) >= 0 && (t - jumpAt) < 1.5 ? 4 : 1; N.Pi_Yorunge.rotation.y += 0.012 * fast; N.Pi_Yorunge.position.y = B.Pi_Yorunge.p.y + Math.sin(t * 1.8) * 0.06; }
-    ["Cisim_Ikosahedron","Cisim_Kup","Cisim_Piramit","Cisim_Torus"].forEach((k, i) => {
-      if(!N[k] || !B[k] || reduce) return;
-      N[k].position.y = B[k].p.y + Math.sin(t * 1.1 + i * 1.7) * 0.12;
-      N[k].rotation.y = B[k].r.y + t * (0.5 + i * 0.15);
-    });
-    if(N.Gezegen && !reduce) N.Gezegen.rotation.y = t * 0.05;
-    renderer.render(scene, cam);
-  }
-  requestAnimationFrame(frame);
-}
-
-async function checkNewDay(first){
-  const fresh = await scheduleUnlock();
-  if(fresh){
-    selected = latest();
-    const d = days[days.length-1];
-    notifyDad(fresh === 1 ? "Mert uygulamayı ilk kez açtı" : "Mert'in Gün " + fresh + " görevi açıldı", d.title, ["unlock"]);
-  }
-  if(first || fresh){ renderScore(); renderToday(); renderLocked(); renderMap(); }
-  if(fresh && !first) celebrate();
+/* ---------- başlangıç ---------- */
+async function check(first){
+  const fresh = await schedule();
+  if(fresh || first){ selected = open[open.length-1].n; render(); }
   return fresh;
 }
 (async function start(){
-  await checkNewDay(true);
-  selected = latest();
-  renderScore(); renderToday(); renderLocked(); renderMap();
-  try{ init3D(); }catch(e){}
+  await check(true);
+  if(!name) askName();
   flushOutbox();
-  document.addEventListener("visibilitychange", () => { if(document.visibilityState === "visible") checkNewDay(false); });
+  setInterval(() => { const c = $("cd"); if(c) c.textContent = untilMidnight(); }, 30000);
+  document.addEventListener("visibilitychange", () => { if(document.visibilityState === "visible") check(false); });
 })();
 </script>
 
-<script>
-if("serviceWorker" in navigator){ addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=202610251916").catch(() => {})); }
-</script>
+<script>if("serviceWorker" in navigator){ addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=202610251949").catch(() => {})); }</script>
 </body>
 </html>

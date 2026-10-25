@@ -1,3 +1,3 @@
-# Mert'in Bilim Görevleri
+# Günün Merakı
 
-Her gün bir bilim görevi. Görevler babanın verdiği kodla açılır.
+Her gün bir genel kültür merakı: kısa okuma, üç soru, akşam sohbeti.
