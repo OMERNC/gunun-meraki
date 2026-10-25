@@ -1,0 +1,19 @@
+name: Günlük hatırlatma
+
+# Her gün Türkiye saatiyle 20:27'de (UTC 17:27) ntfy kanalına hatırlatma gönderir.
+# Saat tam başa denk gelmesin diye birkaç dakika önce; GitHub yoğun saatlerde birkaç dakika gecikebilir.
+on:
+  schedule:
+    - cron: "27 17 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  hatirlat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bildirim gönder
+        run: |
+          curl -fsS https://ntfy.sh/ \
+            -d '{"topic":"mert-bilim-c657911459e06fadccd4","title":"Günün Merakı sizi bekliyor","message":"Bugünün konusu açıldı. Kısa okuma, üç soru ve akşam için bir sohbet sorusu.","tags":["sunrise"],"priority":3,"click":"https://omernc.github.io/bilim-gorevleri/"}'
