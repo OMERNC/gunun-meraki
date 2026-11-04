@@ -180,7 +180,7 @@ button.pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 <div class="who" id="who" hidden>
   <form class="box" id="whoform">
     <h2>Hoş geldiniz</h2>
-    <p>Her gün yeni bir merak açılır. Okuyun, üç soruyu yanıtlayın, akşam üzerine konuşun. Başlamak için adınızı yazın; bu telefonda bu adla devam edersiniz.</p>
+    <p>Her gün iki yeni merak açılır, biri sabah biri akşam. Okuyun, üç soruyu yanıtlayın, akşam üzerine konuşun. Başlamak için adınızı yazın; bu telefonda bu adla devam edersiniz.</p>
     <label class="lbl" for="nameinput">Adınız</label>
     <input id="nameinput" autocomplete="given-name" maxlength="24" placeholder="Örneğin Ayşe" required>
     <p class="err" id="whoerr" aria-live="polite"></p>
@@ -236,21 +236,31 @@ async function serverNow(){
   }catch(e){}
   return null;
 }
+/* Günde iki merak: sabah 06:00, akşam 18:00 (İstanbul). Bir "dilim" = "YYYY-AA-GG-0" (sabah) ya da "-1" (akşam). */
+const istHour = d => +new Intl.DateTimeFormat("en-GB", {timeZone:TZ, hour:"2-digit", hourCycle:"h23"}).format(d);
+const slotOf = d => { const x = new Date(d.getTime() - 6*3600e3); return dayStr(x) + (istHour(x) < 12 ? "-0" : "-1"); };
+const SLOT_ADI = {"0":"Sabah", "1":"Akşam"};
 async function schedule(){
   const now = await serverNow(); netOk = !!now;
-  const today = dayStr(now || new Date());
+  const slot = slotOf(now || new Date());
   let fresh = 0;
-  if(!plan){ plan = {count:1, last:today}; fresh = 1; }
-  else if(now && today > plan.last && plan.count < GUNLER.length){ plan.count++; plan.last = today; fresh = plan.count; }
+  if(plan && plan.last && plan.last.length === 10) plan.last += "-0";   // eski (günde bir) kayıttan geçiş
+  if(!plan){ plan = {count:1, last:slot, slots:{1: slot.slice(-1)}}; fresh = 1; }
+  else if(now && slot > plan.last && plan.count < GUNLER.length){
+    plan.count++; plan.last = slot; plan.slots = plan.slots || {}; plan.slots[plan.count] = slot.slice(-1); fresh = plan.count;
+  }
   store.set("merak.plan", plan);
   open = GUNLER.slice(0, plan.count);
   return fresh;
 }
-function untilMidnight(){
+function nextSlot(){
   const parts = new Intl.DateTimeFormat("en-GB", {timeZone:TZ, hour:"2-digit", minute:"2-digit", second:"2-digit", hourCycle:"h23"}).formatToParts(new Date(Date.now() + clockSkew));
   const g = t => +parts.find(x => x.type === t).value;
-  const left = 86400 - (g("hour")*3600 + g("minute")*60 + g("second"));
-  return Math.floor(left/3600) + " sa " + Math.floor((left%3600)/60) + " dk";
+  const sec = g("hour")*3600 + g("minute")*60 + g("second");
+  const evening = sec >= 6*3600 && sec < 18*3600;
+  const target = sec < 6*3600 ? 6*3600 : sec < 18*3600 ? 18*3600 : 30*3600;
+  const left = target - sec;
+  return {ad: evening ? "Akşam merakı" : "Sabah merakı", saat: evening ? "18:00" : "06:00", kalan: Math.floor(left/3600) + " sa " + Math.floor((left%3600)/60) + " dk"};
 }
 function greet(){
   const h = +new Intl.DateTimeFormat("en-GB", {timeZone:TZ, hour:"2-digit", hourCycle:"h23"}).format(new Date(Date.now() + clockSkew));
@@ -265,7 +275,8 @@ function render(){
   const d = open.find(x => x.n === selected) || open[open.length-1];
   $("heroimg").src = "manzara/" + d.sahne + ".webp";
   $("heroimg").alt = "Pastel tonlarda sakin bir manzara";
-  $("meta").textContent = "Gün " + d.n + " · " + d.kategori;
+  const sl = plan.slots && plan.slots[d.n];
+  $("meta").textContent = "Merak " + d.n + (sl ? " · " + SLOT_ADI[sl] : "") + " · " + d.kategori;
   $("title").textContent = d.baslik;
   $("read").innerHTML = d.okuma.map(p => "<p>" + esc(p) + "</p>").join("");
   $("know").innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5" fill="none" stroke="var(--no)" stroke-width="1.6"/><path d="M9.5 19h5M10 21.5h4M12 10v3" stroke="var(--no)" stroke-width="1.6" stroke-linecap="round"/></svg><div><b>Biliyor muydunuz?</b><p>' + esc(d.biliyor) + "</p></div>";
@@ -293,7 +304,7 @@ function renderQuiz(d){
   });
   if(doneAll){
     html += '<div class="result"><span class="score">' + right + " / " + d.sorular.length + "</span><span class=\"note\">" +
-      (right === d.sorular.length ? "Hepsi doğru. Bugünün merakı tamam." : "Güzel bir okuma. Yanlışlar da öğrenmenin parçası.") + "</span></div>";
+      (right === d.sorular.length ? "Hepsi doğru. Bu merak tamam." : "Güzel bir okuma. Yanlışlar da öğrenmenin parçası.") + "</span></div>";
   }
   $("quiz").innerHTML = html;
   $("quiz").querySelectorAll(".opt:not([disabled])").forEach(b => b.addEventListener("click", () => pick(d, +b.dataset.q, +b.dataset.c)));
@@ -309,12 +320,12 @@ function pick(d, qi, ci){
   const doneAll = a.every(x => x !== null && x !== undefined);
   if(doneAll){
     const right = d.sorular.filter((q, i) => a[i] === q.d).length;
-    const today = plan.last;
+    const today = plan.last.slice(0, 10);
     if(streak.last !== today){
       const y = new Date(today + "T12:00:00Z"); y.setUTCDate(y.getUTCDate() - 1);
       streak.n = streak.last === y.toISOString().slice(0,10) ? streak.n + 1 : 1; streak.last = today; store.set("merak.seri", streak);
     }
-    notify((name || "Biri") + " Gün " + d.n + "'i bitirdi · " + right + "/" + d.sorular.length, d.baslik + "\n\nBu akşamın sorusu: " + d.sohbet, right === d.sorular.length ? ["sparkles"] : ["books"]);
+    notify((name || "Biri") + " Merak " + d.n + "'i bitirdi · " + right + "/" + d.sorular.length, d.baslik + "\n\nBu akşamın sorusu: " + d.sohbet, right === d.sorular.length ? ["sparkles"] : ["books"]);
   }
   render();
   if(doneAll) setTimeout(() => $("talk").scrollIntoView({behavior:"smooth", block:"center"}), 250);
@@ -324,10 +335,11 @@ function renderTomorrow(){
   const host = $("tomorrow");
   const next = plan.count + 1;
   const ready = next <= GUNLER.length;
+  const ns = nextSlot();
   host.innerHTML = '<div class="tomorrow"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="var(--lav-soft)"/><path d="M27 12a11 11 0 1 0 5 17 9 9 0 0 1-5-17z" fill="var(--lav)"/><circle cx="13" cy="14" r="1.4" fill="var(--accent)"/><circle cx="33" cy="33" r="1" fill="var(--accent)"/></svg>' +
-    "<div><h3>" + (ready ? "Yarın yeni bir merak" : "Yeni meraklar hazırlanıyor") + "</h3><p>" +
-    (ready ? 'Gün ' + next + ' gece yarısından sonra kendiliğinden açılacak. Kalan süre: <b id="cd">' + untilMidnight() + "</b>" : "Yakında yeni günler eklenecek.") +
-    (netOk ? "" : "<br>Yeni günün açılması için internete bağlı olun.") + "</p></div></div>";
+    "<div><h3>" + (ready ? "Sıradaki: " + ns.ad.toLocaleLowerCase("tr-TR") : "Yeni meraklar hazırlanıyor") + "</h3><p>" +
+    (ready ? "Her gün iki merak açılır: sabah 06:00'da ve akşam 18:00'de. " + ns.ad + " " + ns.saat + "'de kendiliğinden açılacak. Kalan süre: <b id=\"cd\">" + ns.kalan + "</b>" : "Yakında yeni meraklar eklenecek.") +
+    (netOk ? "" : "<br>Yeni merakın açılması için internete bağlı olun.") + "</p></div></div>";
 }
 
 function renderPast(){
@@ -467,11 +479,11 @@ async function check(first){
   await check(true);
   if(!name) askName();
   flushOutbox();
-  setInterval(() => { const c = $("cd"); if(c) c.textContent = untilMidnight(); }, 30000);
+  setInterval(() => { const c = $("cd"); if(c) c.textContent = nextSlot().kalan; if(plan && slotOf(new Date(Date.now() + clockSkew)) > plan.last) check(false); }, 30000);
   document.addEventListener("visibilitychange", () => { if(document.visibilityState === "visible") check(false); });
 })();
 </script>
 
-<script>if("serviceWorker" in navigator){ addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=202611042125").catch(() => {})); }</script>
+<script>if("serviceWorker" in navigator){ addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=202611042150").catch(() => {})); }</script>
 </body>
 </html>

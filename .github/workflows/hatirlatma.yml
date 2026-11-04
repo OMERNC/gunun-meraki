@@ -1,9 +1,10 @@
 name: Günlük hatırlatma
 
-# Her gün Türkiye saatiyle 20:27'de (UTC 17:27) ntfy kanalına hatırlatma gönderir.
-# Saat tam başa denk gelmesin diye birkaç dakika önce; GitHub yoğun saatlerde birkaç dakika gecikebilir.
+# Günde iki hatırlatma (İstanbul saati): sabah 07:43 (UTC 04:43) ve akşam 20:27 (UTC 17:27).
+# Saat tam başa denk gelmesin diye dakikalar kaydırıldı; GitHub yoğun saatlerde birkaç dakika gecikebilir.
 on:
   schedule:
+    - cron: "43 4 * * *"
     - cron: "27 17 * * *"
   workflow_dispatch:
 
@@ -14,6 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Bildirim gönder
+        env:
+          ZAMAN: ${{ github.event.schedule }}
         run: |
+          if [ "$ZAMAN" = "43 4 * * *" ]; then
+            BASLIK="Sabah merakı açıldı"
+            METIN="Güne kısa bir okuma ve üç soruyla başlayın."
+            ETIKET="sunrise"
+          else
+            BASLIK="Akşam merakı açıldı"
+            METIN="Akşamın merakı hazır: kısa bir okuma, üç soru ve birlikte konuşacağınız bir soru."
+            ETIKET="crescent_moon"
+          fi
           curl -fsS https://ntfy.sh/ \
-            -d '{"topic":"mert-bilim-c657911459e06fadccd4","title":"Günün Merakı sizi bekliyor","message":"Bugünün konusu açıldı. Kısa okuma, üç soru ve akşam için bir sohbet sorusu.","tags":["sunrise"],"priority":3,"click":"https://omernc.github.io/gunun-meraki/"}'
+            -d "{\"topic\":\"mert-bilim-c657911459e06fadccd4\",\"title\":\"$BASLIK\",\"message\":\"$METIN\",\"tags\":[\"$ETIKET\"],\"priority\":3,\"click\":\"https://omernc.github.io/gunun-meraki/\"}"
